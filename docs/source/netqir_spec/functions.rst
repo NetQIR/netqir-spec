@@ -24,7 +24,38 @@ Operate datatypes functions
 
 Communication functions
 -----------------------
-The communication functions include the quantum send and receive functions, each one for %Qubit and %Array. In addition, this functions has different versions in function use one or another technique for the distribution. Finally, also include directives to perform and send the result of qubit measurements.
+Communication functions are intended to exchange quantum information, either of an individual qubit using the ``%Qubit`` datatype or of an array of qubits using ``%Array``. To achieve this goal, it is therefore necessary to have both a sending and a receiving function to establish a correct synchronisation between the distributed devices. 
+
+.. image:: ../images/qsend_receive.svg
+    :width: 400px
+    :align: center
+
+
+\
+
+In addition, this functions has different versions in function use one or another technique for the distribution. The distribution techniques that can be chosen are "teledata" and "telegate". 
+
+- **Teledata**: This technique sends the qubit data to the destination rank.
+
+..  image:: ../images/teledata.svg
+    :width: 400px
+    :align: center
+
+\
+
+- **Telegate**: This technique "expose" the qubit reference to the destination rank.
+
+.. image:: ../images/telegate.svg
+    :width: 400px
+    :align: center
+
+\
+
+Finally, also include directives to perform and send the result of qubit measurements. These functions indicate that the sender measures one or more qubits and sends the classical (binary) result to the receiver.
+
+.. image:: ../images/measure_send.svg
+    :width: 400px
+    :align: center
 
 Sending functions
 ~~~~~~~~~~~~~~~~~
