@@ -3,6 +3,7 @@ Functions
 
 State functions
 ---------------
+
 .. cpp:function:: i32 __netqir__init(i32 argc, i8** argv)
 
     Initializes the distributed environment.
