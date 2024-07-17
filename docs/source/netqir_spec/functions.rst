@@ -296,7 +296,7 @@ Sending functions
     :param %Array* array: Array of qubits.
     :param i32 count: Number of qubits.
     :param i32 dest: Destination rank.
-    :param %Comm comm: Communicator.
+    :param %Comm* comm: Communicator.
 
     :return: 0 if successful, 1 otherwise.
 
@@ -307,7 +307,7 @@ Sending functions
     :param %Array* array: Array of qubits.
     :param i32 count: Number of qubits.
     :param i32 dest: Destination rank.
-    :param %Comm comm: Communicator.
+    :param %Comm* comm: Communicator.
 
     :return: 0 if successful, 1 otherwise.
 
@@ -318,7 +318,7 @@ Sending functions
     :param %Array* array: Array of qubits.
     :param i32 count: Number of qubits.
     :param i32 dest: Destination rank.
-    :param %Comm comm: Communicator.
+    :param %Comm* comm: Communicator.
 
     :return: 0 if successful, 1 otherwise.
 
@@ -328,7 +328,7 @@ Sending functions
     
     :param %Qubit* qubit: Qubit to send.
     :param i32 dest: Destination rank.
-    :param %Comm comm: Communicator.
+    :param %Comm* comm: Communicator.
 
     :return: 0 if successful, 1 otherwise.
 
@@ -338,7 +338,7 @@ Sending functions
     
     :param %Qubit* qubit: Qubit to send.
     :param i32 dest: Destination rank.
-    :param %Comm comm: Communicator.
+    :param %Comm* comm: Communicator.
 
     :return: 0 if successful, 1 otherwise.
 
@@ -348,7 +348,7 @@ Sending functions
     
     :param %Qubit* qubit: Qubit to send.
     :param i32 dest: Destination rank.
-    :param %Comm comm: Communicator.
+    :param %Comm* comm: Communicator.
 
     :return: 0 if successful, 1 otherwise.
 
@@ -363,7 +363,7 @@ Receive functions
     :param %Array** buf: Buffer with enough space to store the expected qubits.
     :param i32 count: Number of qubits expected to be received.
     :param i32 src: Source rank.
-    :param %Comm comm: Communicator.
+    :param %Comm* comm: Communicator.
 
     :return: 0 if successful, 1 otherwise.
 
@@ -374,7 +374,7 @@ Receive functions
     :param %Array** buf: Buffer with enough space to store the expected qubits.
     :param i32 count: Number of qubits expected to be received.
     :param i32 src: Source rank.
-    :param %Comm comm: Communicator.
+    :param %Comm* comm: Communicator.
 
     :return: 0 if successful, 1 otherwise.
 
@@ -385,7 +385,7 @@ Receive functions
     :param %Array** buf: Buffer with enough space to store the expected qubits.
     :param i32 count: Number of qubits expected to be received.
     :param i32 src: Source rank.
-    :param %Comm comm: Communicator.
+    :param %Comm* comm: Communicator.
 
     :return: 0 if successful, 1 otherwise.
 
@@ -395,7 +395,7 @@ Receive functions
     
     :param %Qubit** buf: Buffer with space reserved for storing one qubit.
     :param i32 src: Source rank.
-    :param %Comm comm: Communicator.
+    :param %Comm* comm: Communicator.
 
     :return: 0 if successful, 1 otherwise.
 
@@ -405,7 +405,7 @@ Receive functions
     
     :param %Qubit** buf: Buffer with space reserved for storing one qubit.
     :param i32 src: Source rank.
-    :param %Comm comm: Communicator.
+    :param %Comm* comm: Communicator.
 
     :return: 0 if successful, 1 otherwise.
 
@@ -415,7 +415,7 @@ Receive functions
     
     :param %Qubit** buf: Buffer with space reserved for storing one qubit.
     :param i32 src: Source rank.
-    :param %Comm comm: Communicator.
+    :param %Comm* comm: Communicator.
 
     :return: 0 if successful, 1 otherwise.
 
@@ -429,7 +429,7 @@ Measurement functions
     :param %Array* array: Array of qubits to measure.
     :param i32 count: Number of qubits in the array.
     :param i32 dest: Destination rank of the binary result.
-    :param %Comm comm: Communicator.
+    :param %Comm* comm: Communicator.
 
     :return: 0 if successful, 1 otherwise.
 
@@ -439,7 +439,7 @@ Measurement functions
     
     :param %Qubit* qubit: Qubit to measure.
     :param i32 dest: Destination rank of the binary result.
-    :param %Comm comm: Communicator.
+    :param %Comm* comm: Communicator.
 
     :return: 0 if successful, 1 otherwise.
 
@@ -450,7 +450,7 @@ Measurement functions
     :param i1* buf: Buffer with enough space to store the expected binary results.
     :param i32 count: Number of qubits measured.
     :param i32 src: Source rank of the binary results.
-    :param %Comm comm: Communicator.
+    :param %Comm* comm: Communicator.
 
     :return: 0 if successful, 1 otherwise.
 
@@ -460,7 +460,7 @@ Measurement functions
     
     :param i1* buf: Buffer with enough space to store the expected binary result.
     :param i32 src: Source rank of the binary result.
-    :param %Comm comm: Communicator.
+    :param %Comm* comm: Communicator.
 
     :return: 0 if successful, 1 otherwise.
     
