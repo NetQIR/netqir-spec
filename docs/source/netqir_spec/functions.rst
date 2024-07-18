@@ -26,7 +26,7 @@ backend behind them. **#TODO**: Add more information about the functions.
 
 
 ``%Comm`` functions
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
 .. cpp:function:: i32 __netqir__comm_create(Comm* old_comm, Group* group, Comm** new_comm)
 
@@ -96,7 +96,7 @@ backend behind them. **#TODO**: Add more information about the functions.
     :return: 0 if successful, 1 otherwise.
 
 ``%Group`` functions
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 .. cpp:function:: i32 __netqir__comm_create_group(Comm* comm, Group* group, Comm** new_comm)
 
@@ -192,7 +192,7 @@ backend behind them. **#TODO**: Add more information about the functions.
     :return: 0 if successful, 1 otherwise.
 
 Cartesian topology functions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------
 
 .. cpp:function:: i32 __netqir__cart_coords(Comm* comm, i32 rank, i32 maxdims, ptr coords)
 
