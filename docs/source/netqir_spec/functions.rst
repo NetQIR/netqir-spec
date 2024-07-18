@@ -1,8 +1,8 @@
 Functions
-=========
+#########
 
 State functions
----------------
+===============
 
 .. cpp:function:: i32 __netqir__init(i32 argc, i8** argv)
 
@@ -20,12 +20,22 @@ State functions
     :return: 0 if successful, 1 otherwise.
 
 Operate datatypes functions
----------------------------
+===========================
 
 
 Communication functions
------------------------
-Communication functions are intended to exchange quantum information, either of an individual qubit using the ``%Qubit`` datatype or of an array of qubits using ``%Array``. To achieve this goal, it is therefore necessary to have both a sending and a receiving function to establish a correct synchronisation between the distributed devices. 
+=======================
+
+Communication functions are intended to exchange quantum information, either of an individual qubit using the ``%Qubit`` datatype or of an array of qubits using ``%Array``. 
+
+Communication can be point-to-point or collective. Communication can be **point-to-point** or **collective**. The first type establishes sender and receiver communication from one compute node to another. Collective communications, on the other hand, allow information to be sent from several nodes to several nodes within the same communicator.
+
+
+
+Point-to-point communication
+----------------------------
+
+Point-to-point communications involves a transfer of information from one node (sender) to another (receiver). To achieve this goal, it is therefore necessary to have both a sending and a receiving function to establish a correct synchronisation between the distributed devices. 
 
 .. image:: ../images/qsend_receive.svg
     :width: 400px
@@ -236,3 +246,194 @@ Measurement functions
 
     :return: 0 if successful, 1 otherwise.
     
+Collective communication
+------------------------
+
+Collective communications are used to exchange information between several nodes. The most common collective communication functions, in the classical computing, are ``broadcast``, ``scatter``, ``gather``, and ``reduce``.
+
+In quantum computing, a broadcast function cannot be implemented due to the no-cloning theorem, but an alternative is proposed through a function called ``expose``. This function allows a qubit to be shared among all nodes in the communicator.
+
+Scatter
+~~~~~~~
+
+The scatter function distributes the elements of a qubit array among the nodes in the communicator. The array is divided into equal parts and each part is sent to a different node.
+
+.. image:: ../images/scatter.svg
+    :width: 600px
+    :align: center
+
+\
+
+.. cpp:function:: i32 __netqir__scatter(Array* sendbuf, i32 sendcount, Array* recvbuf, i32 recvcount, i32 root, Comm* comm)
+
+    Scatter an array of qubits from the root node to all nodes in the communicator. The compiler decides which sending technique is used.
+    
+    :param %Array* sendbuf: Array of qubits to send (only for the sender).
+    :param i32 sendcount: Number of qubits to send (only for the sender).
+    :param %Array* recvbuf: Buffer with enough space to store the received qubits.
+    :param i32 recvcount: Number of qubits to receive.
+    :param i32 root: Rank of the root node (sender).
+    :param %Comm* comm: Communicator.
+
+    :return: 0 if successful, 1 otherwise.
+
+.. cpp:function:: i32 __netqir__scatter_teledata(Array* sendbuf, i32 sendcount, Array* recvbuf, i32 recvcount, i32 root, Comm* comm)
+    
+        Scatter an array of qubits from the root node to all nodes in the communicator using the teledata technique.
+        
+        :param %Array* sendbuf: Array of qubits to send (only for the sender).
+        :param i32 sendcount: Number of qubits to send (only for the sender).
+        :param %Array* recvbuf: Buffer with enough space to store the received qubits.
+        :param i32 recvcount: Number of qubits to receive.
+        :param i32 root: Rank of the root node (sender).
+        :param %Comm* comm: Communicator.
+    
+        :return: 0 if successful, 1 otherwise.
+
+.. cpp:function:: i32 __netqir__scatter_telegate(Array* sendbuf, i32 sendcount, Array* recvbuf, i32 recvcount, i32 root, Comm* comm)
+        
+        Scatter an array of qubits from the root node to all nodes in the communicator using the telegate technique.
+        
+        :param %Array* sendbuf: Array of qubits to send (only for the sender).
+        :param i32 sendcount: Number of qubits to send (only for the sender).
+        :param %Array* recvbuf: Buffer with enough space to store the received qubits.
+        :param i32 recvcount: Number of qubits to receive.
+        :param i32 root: Rank of the root node (sender).
+        :param %Comm* comm: Communicator.
+    
+        :return: 0 if successful, 1 otherwise.
+
+Gather
+~~~~~~~
+
+The gather function collects the elements of a qubit array from all nodes in the communicator. The elements are received and stored in a single node.
+
+.. image:: ../images/gather.svg
+    :width: 600px
+    :align: center
+
+\
+
+.. cpp:function:: i32 __netqir__gather(Array* sendbuf, i32 sendcount, Array* recvbuf, i32 recvcount, i32 root, Comm* comm)
+
+    Gather an array of qubits from all nodes in the communicator to the root node. The compiler decides which sending technique is used.
+    
+    :param %Array* sendbuf: Array of qubits to send.
+    :param i32 sendcount: Number of qubits to send.
+    :param %Array* recvbuf: Buffer with enough space to store the received qubits (only for the root).
+    :param i32 recvcount: Number of qubits to receive (only for the root).
+    :param i32 root: Rank of the root node (receiver).
+    :param %Comm* comm: Communicator.
+
+    :return: 0 if successful, 1 otherwise.
+
+.. cpp:function:: i32 __netqir__gather_teledata(Array* sendbuf, i32 sendcount, Array* recvbuf, i32 recvcount, i32 root, Comm* comm)
+
+    Gather an array of qubits from all nodes in the communicator to the root node using the teledata technique.
+    
+    :param %Array* sendbuf: Array of qubits to send.
+    :param i32 sendcount: Number of qubits to send.
+    :param %Array* recvbuf: Buffer with enough space to store the received qubits (only for the root).
+    :param i32 recvcount: Number of qubits to receive (only for the root).
+    :param i32 root: Rank of the root node (receiver).
+    :param %Comm* comm: Communicator.
+
+    :return: 0 if successful, 1 otherwise.
+
+.. cpp:function:: i32 __netqir__gather_telegate(Array* sendbuf, i32 sendcount, Array* recvbuf, i32 recvcount, i32 root, Comm* comm)
+    
+    Gather an array of qubits from all nodes in the communicator to the root node using the telegate technique.
+    
+    :param %Array* sendbuf: Array of qubits to send.
+    :param i32 sendcount: Number of qubits to send.
+    :param %Array* recvbuf: Buffer with enough space to store the received qubits (only for the root).
+    :param i32 recvcount: Number of qubits to receive (only for the root).
+    :param i32 root: Rank of the root node (receiver).
+    :param %Comm* comm: Communicator.
+
+    :return: 0 if successful, 1 otherwise.
+
+Expose
+~~~~~~~
+
+The expose function allows a qubit to be shared among all nodes in the communicator. The qubit is shared by exposing its reference (not copy) to all nodes.
+
+.. image:: ../images/expose.svg
+    :width: 400px
+    :align: center
+
+\
+
+.. cpp:function:: i32 __netqir__expose(Qubit* qubit, i32 root, Comm* comm)
+
+    Expose a qubit to all nodes in the communicator.
+    
+    :param %Qubit* qubit: Qubit to expose.
+    :param i32 root: Rank of the root node.
+    :param %Comm* comm: Communicator.
+
+    :return: 0 if successful, 1 otherwise.
+
+.. cpp:function:: i32 __netqir__expose_array(Array* array, i32 count, i32 root, Comm* comm)
+
+    Expose an array of qubits to all nodes in the communicator.
+    
+    :param %Array* array: Array of qubits to expose.
+    :param i32 count: Number of qubits in the array.
+    :param i32 root: Rank of the root node.
+    :param %Comm* comm: Communicator.
+
+    :return: 0 if successful, 1 otherwise.
+
+Reduce
+~~~~~~
+
+\
+
+The reduce function aggregates the elements of a qubit array from all nodes in the communicator. The elements are combined using an operation and the result is stored in a single node.
+
+.. image:: ../images/reduce.svg
+    :width: 600px
+    :align: center
+
+\
+\
+
+.. cpp:function:: i32 __netqir__reduce(Array* sendbuf, i32 sendcount, Array *recvbuf, i32 operation, i32 root, Comm* comm)
+
+    Reduce an array of qubits from all nodes in the communicator to the root node. The compiler decides which sending technique is used.
+    
+    :param %Array* sendbuf: Array of qubits to send.
+    :param i32 sendcount: Number of qubits to send.
+    :param %Array* recvbuf: Buffer with enough space to store the received qubits (only for the root).
+    :param i32 operation: Operation to perform.
+    :param i32 root: Rank of the root node (receiver).
+    :param %Comm* comm: Communicator.
+
+    :return: 0 if successful, 1 otherwise.
+
+.. cpp:function:: i32 __netqir__reduce_teledata(Array* sendbuf, i32 sendcount, Array *recvbuf, i32 operation, i32 root, Comm* comm)
+    
+    Reduce an array of qubits from all nodes in the communicator to the root node using the teledata technique.
+    
+    :param %Array* sendbuf: Array of qubits to send.
+    :param i32 sendcount: Number of qubits to send.
+    :param %Array* recvbuf: Buffer with enough space to store the received qubits (only for the root).
+    :param i32 operation: Operation to perform.
+    :param i32 root: Rank of the root node (receiver).
+    :param %Comm* comm: Communicator.
+
+    :return: 0 if successful, 1 otherwise.
+
+.. cpp:function:: i32 __netqir__reduce_telegate(Array* sendbuf, i32 sendcount, Array *recvbuf, i32 operation, i32 root, Comm* comm)
+        
+    Reduce an array of qubits from all nodes in the communicator to the root node using the telegate technique.
+    
+    :param %Array* sendbuf: Array of qubits to send.
+    :param i32 sendcount: Number of qubits to send.
+    :param %Array* recvbuf: Buffer with enough space to store the received qubits (only for the root).
+    :param i32 operation: Operation to perform.
+    :param i32 root: Rank of the root node (receiver).
+    :param %Comm* comm: Communicator.
+
+    :return: 0 if successful, 1 otherwise.  
