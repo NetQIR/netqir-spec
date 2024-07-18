@@ -27,6 +27,9 @@ backend behind them. **#TODO**: Add more information about the functions.
 
 ``%Comm`` functions
 -------------------
+The ``%Comm`` datatype is used to define a communicator, which is a group of nodes that can communicate with each other. The communicator is used to define the scope of the communication, and it is used to create a new communicator from a subset of nodes from another communicator, as well as to create a communicator as a copy of another.
+
+The different functions that can be used with the ``%Comm`` datatype are:
 
 .. cpp:function:: i32 __netqir__comm_create(Comm* old_comm, Group* group, Comm** new_comm)
 
@@ -97,6 +100,8 @@ backend behind them. **#TODO**: Add more information about the functions.
 
 ``%Group`` functions
 --------------------
+
+The ``%Group`` datatype is used to define a set of nodes, thus, the operations that can be performed with this datatype are operations between sets, such as the union or intersection of nodes.
 
 .. cpp:function:: i32 __netqir__comm_create_group(Comm* comm, Group* group, Comm** new_comm)
 
