@@ -4,12 +4,12 @@ Functions
 State functions
 ===============
 
-.. cpp:function:: i32 __netqir__init(i32 argc, i8** argv)
+.. cpp:function:: i32 __netqir__init(i32 argc, ptr argv)
 
     Initializes the distributed environment.
 
     :param i32 argc: Number of arguments.
-    :param i8** argv: Arguments.
+    :param ptr argv: Arguments.
 
     :return: 0 if successful, 1 otherwise.
 
@@ -166,7 +166,7 @@ The ``%Group`` datatype is used to define a set of nodes, thus, the operations t
 
     :return: 0 if successful, 1 otherwise.
 
-.. cpp:function:: i32 __netqir__group_range_incl(%Group* old_group, i32 n, [3xi32]* ranges, %Group** new_group)
+.. cpp:function:: i32 __netqir__group_range_incl(Group* old_group, i32 n, ptr ranges, Group** new_group)
 
     Produces a new group from ranges of ranks in an existing group.
 

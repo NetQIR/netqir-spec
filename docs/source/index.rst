@@ -10,8 +10,9 @@ representation for distributed quantum systems.
    This project is under active development.
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    :caption: NetQIR Specification
 
    netqir_spec/datatypes
    netqir_spec/functions
+   netqir_spec/examples
