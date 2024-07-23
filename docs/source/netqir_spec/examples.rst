@@ -25,10 +25,25 @@ Employement of ``qsend`` and ``qrecv`` directives
 -------------------------------------------------
 The following code shows how to use the ``qsend`` directive to send a qubit from one node to another.
 
-.. literalinclude:: ../examples/qsend_qrecv.ll
+.. literalinclude:: ../examples/qsend_qrecv/qsend_qrecv.ll
    :language: llvm
+   :caption: Example of ``qsend`` and ``qrecv`` directives.
 
-In this case, #TODO: Add figure (y quizas una puerta para que el circuito no sea solo enviar y recibir).
+This previous program follows a very *MPI-like* structure, with a single file defining all the processes and an conditional
+structure to decide if the process is going to send or receive the qubit. It is also possible to have two files, one
+responsible for sending the qubit and the other for receiving it. Both structures will be perfectly valid, the only
+important thing is to give both processes the same communicator. But this is going to be the resposability of the backend.
+
+.. literalinclude:: ../examples/qsend_qrecv/qsend.ll
+   :language: llvm
+   :caption: Example of ``qsend`` directive in a single file.
+
+.. literalinclude:: ../examples/qsend_qrecv/qrecv.ll
+   :language: llvm
+   :caption: Example of ``qrecv`` directive in a single file.
+
+The latter will most like be employed in network communications while the first one, meaning the single file, will probably
+be employed when working with a multicore infrastructure, as happens with MPI. **ESTO ES CIERTO?** 
 
 Collective communication
 ========================
