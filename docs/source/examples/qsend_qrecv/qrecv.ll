@@ -17,5 +17,5 @@ define void @main(i32 noundef %0, ptr noundef %1) #0 {
 
 ; Function declaration
 declare i32 @__netqir__init()
-declare i32 @__netqir__qsend(%Qubit*, i32, %Comm)
+declare i32 @__netqir__qrecv(%Qubit*, i32, %Comm)
 declare void @__netqir__finalize()
