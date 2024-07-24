@@ -51,8 +51,9 @@ important thing is to give both processes the same communicator. But this is goi
    :language: llvm
    :caption: Example of ``qrecv`` directive in a single file.
 
-The latter will most like be employed in network communications while the first one, meaning the single file, will probably
-be employed when working with a multicore infrastructure, as happens with MPI.
+Two examples have been shown for the ``qsend`` and ``qrecv`` directives: a **single file for both process types** and **one
+file for each process type**. The first example is commonly used by multicore infrastructure, e.g. MPI. On the other hand, 
+the second example is intended for network communications where there is no perfectly coordinated computation.
 
 Sending and receiving and array of qubits
 -----------------------------------------
