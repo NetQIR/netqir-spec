@@ -98,3 +98,10 @@ operation understood as the classical one: one party sends a copy of the informa
 
 This is why the :ref:`Collective communication <collective_communication>` section has introduced several functions that adapt the collective
 communication paradigm to quantum computing. These functions are the targets of the following examples.
+
+Expose
+------
+
+.. literalinclude:: ../examples/expose.ll
+   :language: llvm
+   :caption: Example of the ``expose`` directive.
