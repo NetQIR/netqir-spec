@@ -22,13 +22,21 @@ Point-to-point communication
 
 In this section we will try to show how point-to-point communication works in NetQIR.
 
-Sending and receiving one single qubit
---------------------------------------
+Employement of ``qsend`` and ``qrecv`` directives
+-------------------------------------------------
+
+Single file for ``qsend`` and ``qrecv``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 The following code shows how to use the ``qsend`` directive to send a qubit from one node to another.
 
 .. literalinclude:: ../examples/qsend_qrecv/qsend_qrecv.ll
    :language: llvm
    :caption: Example of ``qsend`` and ``qrecv`` directives.
+
+
+One file for each directive
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This previous program follows a very *MPI-like* structure, with a single file defining all the processes and an conditional
 structure to decide if the process is going to send or receive the qubit. It is also possible to have two files, one
