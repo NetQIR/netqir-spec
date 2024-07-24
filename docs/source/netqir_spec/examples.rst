@@ -19,10 +19,11 @@ example.
 
 Point-to-point communication
 ============================
+
 In this section we will try to show how point-to-point communication works in NetQIR.
 
-Employement of ``qsend`` and ``qrecv`` directives
--------------------------------------------------
+Sending and receiving one single qubit
+--------------------------------------
 The following code shows how to use the ``qsend`` directive to send a qubit from one node to another.
 
 .. literalinclude:: ../examples/qsend_qrecv/qsend_qrecv.ll
@@ -43,7 +44,34 @@ important thing is to give both processes the same communicator. But this is goi
    :caption: Example of ``qrecv`` directive in a single file.
 
 The latter will most like be employed in network communications while the first one, meaning the single file, will probably
-be employed when working with a multicore infrastructure, as happens with MPI. **ESTO ES CIERTO?** 
+be employed when working with a multicore infrastructure, as happens with MPI.
+
+Sending and receiving and array of qubits
+-----------------------------------------
+
+In this case, the structure employed---instead of ``%Qubit``---is ``%Array``. This is because we are going to
+send and receive a slot of qubits. This structure is the same one that QIR introduces, so the reader is referred to the 
+`QIR specification <https://github.com/qir-alliance/qir-spec>`_ for more information.
+
+.. literalinclude:: ../examples/qsend_qrecv/qsend_qrecv_array.ll
+   :language: llvm
+   :caption: Example of ``qsend`` and ``qrecv`` directives with an array of qubits.
+
+Similar to before, this could be splitted into two different files, one for sending and the other for receiving. In this case,
+this examplification will be ommited due to the similarity with the previous example.
+
+Teledata vs telegate
+--------------------
+
+Both ``qsend`` and ``qrecv`` directives have two versions: ``qsend`` and ``qsend_array`` and ``qrecv`` and ``qrecv_array``, this
+was already mentioned in the previous examples. But, beneath this two versions, two more directives are available for each: 
+on the first case ``qsend_teledata`` and ``qsend_telegate``, and on the second case ``qrecv_array_teledata`` and ``qrecv_array_telegate``.
+This directives are used to explicitly determine whether the communication is done with the teledata protocol or with the telegate protocol.
+
+This way of marking the communication protocol is not random. A flag inside the communication directives could be used to determine the
+protocol. But this flag could represent a barrier for compiler optimizations, because in order to determine which is the protocol
+it should know the value of the aforementioned flag. This could be a problem when the flag is not a constant.
+
 
 Collective communication
 ========================
