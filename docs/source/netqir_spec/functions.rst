@@ -478,7 +478,9 @@ Measurement functions
     :param %Comm* comm: Communicator.
 
     :return: 0 if successful, 1 otherwise.
-    
+
+.. _collective_communication:
+
 Collective communication
 ------------------------
 

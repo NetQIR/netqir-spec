@@ -81,6 +81,20 @@ This way of marking the communication protocol is not random. A flag inside the 
 protocol. But this flag could represent a barrier for compiler optimizations, because in order to determine which is the protocol
 it should know the value of the aforementioned flag. This could be a problem when the flag is not a constant.
 
+The use of these directives is exactly the same as the previous ones, the only difference is that the programmer has the control over the
+protocol used for the communication. But the actual code is exactly the same except for the directive name.
 
 Collective communication
 ========================
+
+After seing the most basic communication directives, i.e. sending and receiving information between two different parties, we are going to 
+see how collective communication works in NetQIR. This type of communication represents a one to many, or vice versa, way of communicating, 
+where one party sends information to all the others or all the parties send information to one.
+
+This is pretty common in classical computing with, for example, MPI directives such as ``MPI_Gather``, ``MPI_Scatter``, ``MPI_Bcast``, etc. 
+This are operations that, nevertheless, are not directly translatable to quantum computing. There are several reasons for that, but the most
+important one is the non-cloning theorem. The fact that a quantum state cannot be copied eliminates the possibility of getting a broadcast
+operation understood as the classical one: one party sends a copy of the information to all the others.
+
+This is why the :ref:`Collective communication <collective_communication>` section has introduced several functions that adapt the collective
+communication paradigm to quantum computing. These functions are the targets of the following examples.
