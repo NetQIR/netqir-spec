@@ -16,3 +16,4 @@ representation for distributed quantum systems.
    netqir_spec/datatypes
    netqir_spec/functions
    netqir_spec/examples
+   netqir_spec/qir

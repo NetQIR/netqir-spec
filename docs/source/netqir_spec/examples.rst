@@ -30,7 +30,7 @@ Single file for ``qsend`` and ``qrecv``
 
 The following code shows how to use the ``qsend`` directive to send a qubit from one node to another.
 
-.. literalinclude:: ../examples/qsend_qrecv/qsend_qrecv.ll
+.. literalinclude:: ../llvm-code/qsend_qrecv/qsend_qrecv.ll
    :language: llvm
    :caption: Example of ``qsend`` and ``qrecv`` directives.
 
@@ -43,11 +43,11 @@ structure to decide if the process is going to send or receive the qubit. It is 
 responsible for sending the qubit and the other for receiving it. Both structures will be perfectly valid, the only
 important thing is to give both processes the same communicator. But this is going to be the resposability of the backend.
 
-.. literalinclude:: ../examples/qsend_qrecv/qsend.ll
+.. literalinclude:: ../llvm-code/qsend_qrecv/qsend.ll
    :language: llvm
    :caption: Example of ``qsend`` directive in a single file.
 
-.. literalinclude:: ../examples/qsend_qrecv/qrecv.ll
+.. literalinclude:: ../llvm-code/qsend_qrecv/qrecv.ll
    :language: llvm
    :caption: Example of ``qrecv`` directive in a single file.
 
@@ -62,7 +62,7 @@ In this case, the structure employed---instead of ``%Qubit``---is ``%Array``. Th
 send and receive a slot of qubits. This structure is the same one that QIR introduces, so the reader is referred to the 
 `QIR specification <https://github.com/qir-alliance/qir-spec>`_ for more information.
 
-.. literalinclude:: ../examples/qsend_qrecv/qsend_qrecv_array.ll
+.. literalinclude:: ../llvm-code/qsend_qrecv/qsend_qrecv_array.ll
    :language: llvm
    :caption: Example of ``qsend`` and ``qrecv`` directives with an array of qubits.
 
@@ -101,7 +101,9 @@ communication paradigm to quantum computing. These functions are the targets of 
 
 Expose
 ------
+First, we will start with a simple example. In this case, one process exposes a qubit and all the other nodes perform a CNOT operation on this
+qubit.
 
-.. literalinclude:: ../examples/expose.ll
+.. literalinclude:: ../llvm-code/expose.ll
    :language: llvm
    :caption: Example of the ``expose`` directive.
