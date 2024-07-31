@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QIR clarifications &mdash; NetQIR 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Examples" href="examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            NetQIR
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">NetQIR Specification</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="datatypes.html">Datatypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">QIR clarifications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#opaque-vs-typed-pointers">Opaque vs typed pointers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#arrays">Arrays</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">NetQIR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">QIR clarifications</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/netqir_spec/qir.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qir-clarifications">
+<h1>QIR clarifications<a class="headerlink" href="#qir-clarifications" title="Link to this heading"></a></h1>
+<p>In this section different aspects of QIR will be discussed. During NetQIR development, some aspects of QIR were found problematic
+and affected the development of NetQIR. This section aims to clarify these aspects or, at least, notice them.</p>
+<section id="opaque-vs-typed-pointers">
+<h2>Opaque vs typed pointers<a class="headerlink" href="#opaque-vs-typed-pointers" title="Link to this heading"></a></h2>
+<p>An important aspect in later versions of LLVM (specifically, LLVM 14 and so on) is the inclusion of <a class="reference external" href="https://llvm.org/docs/OpaquePointers.html">opaque pointers</a>. This way of
+programming, as it is much better explained in the previous link, removes a lot of complexity of the IR—eliminating no-op bitcast operations
+that hinder the development—among other advantages.</p>
+<p>QIR does not consider this type of pointers and, as it is shown in this documentation, it uses typed pointers for the quantum datatypes— <code class="docutils literal notranslate"><span class="pre">%Qubit*</span></code>, <code class="docutils literal notranslate"><span class="pre">%Result*</span></code> and so on and
+so forth—. This could adapted to this new LLVM opaque pointers feature, but it would require a change in the QIR specification. We leave here a comparison between a program
+using the typed pointers and the same program using the opaque pointers in order to show how it would change:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Program with the usual QIR typed pointers.</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="c">; FILE EXTRACTED FROM QAT COMPILER TESTS</span>
+
+<span class="c">; ModuleID = &#39;bell&#39;</span>
+<span class="k">source_filename</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;bell&quot;</span>
+
+<span class="nv">%Qubit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="k">opaque</span>
+<span class="nv">%Result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="k">opaque</span>
+
+<span class="k">define</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@main</span><span class="p">()</span><span class="w"> </span><span class="vg">#0</span><span class="w"> </span><span class="p">{</span>
+<span class="nl">entry:</span>
+<span class="w">  </span><span class="k">call</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__qis__h__body</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">*</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
+<span class="w">  </span><span class="k">call</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__qis__cnot__body</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">*</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="nv">%Qubit</span><span class="p">*</span><span class="w"> </span><span class="k">inttoptr</span><span class="w"> </span><span class="p">(</span><span class="kt">i64</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nv">%Qubit</span><span class="p">*))</span>
+<span class="w">  </span><span class="k">call</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__qis__mz__body</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">*</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="nv">%Result</span><span class="p">*</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
+<span class="w">  </span><span class="k">call</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__qis__mz__body</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">*</span><span class="w"> </span><span class="k">inttoptr</span><span class="w"> </span><span class="p">(</span><span class="kt">i64</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nv">%Qubit</span><span class="p">*),</span>
+<span class="w">                                      </span><span class="nv">%Result</span><span class="p">*</span><span class="w"> </span><span class="k">inttoptr</span><span class="w"> </span><span class="p">(</span><span class="kt">i64</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nv">%Result</span><span class="p">*))</span>
+<span class="w">  </span><span class="k">call</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__rt__result_record_output</span><span class="p">(</span><span class="nv">%Result</span><span class="p">*</span><span class="w"> </span><span class="k">inttoptr</span><span class="w"> </span><span class="p">(</span><span class="kt">i64</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nv">%Result</span><span class="p">*),</span><span class="w"> </span><span class="kt">i8</span><span class="p">*</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
+<span class="w">  </span><span class="k">call</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__rt__result_record_output</span><span class="p">(</span><span class="nv">%Result</span><span class="p">*</span><span class="w"> </span><span class="k">inttoptr</span><span class="w"> </span><span class="p">(</span><span class="kt">i64</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nv">%Result</span><span class="p">*),</span><span class="w"> </span><span class="kt">i8</span><span class="p">*</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
+<span class="w">  </span><span class="k">ret</span><span class="w"> </span><span class="k">void</span>
+<span class="p">}</span>
+
+<span class="k">declare</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__qis__h__body</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">*)</span>
+
+<span class="k">declare</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__qis__cnot__body</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">*,</span><span class="w"> </span><span class="nv">%Qubit</span><span class="p">*)</span>
+
+<span class="k">declare</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__qis__mz__body</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">*,</span><span class="w"> </span><span class="nv">%Result</span><span class="p">*)</span>
+
+<span class="k">declare</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__rt__result_record_output</span><span class="p">(</span><span class="nv">%Result</span><span class="p">*,</span><span class="w"> </span><span class="kt">i8</span><span class="p">*)</span>
+
+<span class="k">attributes</span><span class="w"> </span><span class="vg">#0</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;EntryPoint&quot;</span><span class="w"> </span><span class="s">&quot;requiredQubits&quot;</span><span class="p">=</span><span class="s">&quot;2&quot;</span><span class="w"> </span><span class="s">&quot;requiredResults&quot;</span><span class="p">=</span><span class="s">&quot;2&quot;</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Same program with opaque pointers.</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="c">; ModuleID = &#39;bell&#39;</span>
+<span class="k">source_filename</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;bell&quot;</span>
+
+<span class="nv">%Qubit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="k">opaque</span>
+<span class="nv">%Result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="k">opaque</span>
+
+<span class="k">define</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@main</span><span class="p">()</span><span class="w"> </span><span class="vg">#0</span><span class="w"> </span><span class="p">{</span>
+<span class="nl">entry:</span>
+<span class="w">  </span><span class="k">call</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__qis__h__body</span><span class="p">(</span><span class="kt">ptr</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
+<span class="w">  </span><span class="k">call</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__qis__cnot__body</span><span class="p">(</span><span class="kt">ptr</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="k">inttoptr</span><span class="w"> </span><span class="p">(</span><span class="kt">i64</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="kt">ptr</span><span class="p">))</span>
+<span class="w">  </span><span class="k">call</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__qis__mz__body</span><span class="p">(</span><span class="kt">ptr</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
+<span class="w">  </span><span class="k">call</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__qis__mz__body</span><span class="p">(</span><span class="kt">ptr</span><span class="w"> </span><span class="k">inttoptr</span><span class="w"> </span><span class="p">(</span><span class="kt">i64</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="kt">ptr</span><span class="p">),</span>
+<span class="w">                                      </span><span class="kt">ptr</span><span class="w"> </span><span class="k">inttoptr</span><span class="w"> </span><span class="p">(</span><span class="kt">i64</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="kt">ptr</span><span class="p">))</span>
+<span class="w">  </span><span class="k">call</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__rt__result_record_output</span><span class="p">(</span><span class="kt">ptr</span><span class="w"> </span><span class="k">inttoptr</span><span class="w"> </span><span class="p">(</span><span class="kt">i64</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="kt">ptr</span><span class="p">),</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
+<span class="w">  </span><span class="k">call</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__rt__result_record_output</span><span class="p">(</span><span class="kt">ptr</span><span class="w"> </span><span class="k">inttoptr</span><span class="w"> </span><span class="p">(</span><span class="kt">i64</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="kt">ptr</span><span class="p">),</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="k">null</span><span class="p">)</span>
+<span class="w">  </span><span class="k">ret</span><span class="w"> </span><span class="k">void</span>
+<span class="p">}</span>
+
+<span class="k">declare</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__qis__h__body</span><span class="p">(</span><span class="kt">ptr</span><span class="p">)</span>
+
+<span class="k">declare</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__qis__cnot__body</span><span class="p">(</span><span class="kt">ptr</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="p">)</span>
+
+<span class="k">declare</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__qis__mz__body</span><span class="p">(</span><span class="kt">ptr</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="p">)</span>
+
+<span class="k">declare</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__rt__result_record_output</span><span class="p">(</span><span class="kt">ptr</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="p">)</span>
+
+<span class="k">attributes</span><span class="w"> </span><span class="vg">#0</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;EntryPoint&quot;</span><span class="w"> </span><span class="s">&quot;requiredQubits&quot;</span><span class="p">=</span><span class="s">&quot;2&quot;</span><span class="w"> </span><span class="s">&quot;requiredResults&quot;</span><span class="p">=</span><span class="s">&quot;2&quot;</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>As one may notice, the second program—where opaque pointers are employed—is much less readable. This is because, in this example, one cannot rapidly identify the type of the pointers and, therefore,
+understand the program. But these are the kind of trade-offs that have to be made in order to have a standard contained in LLVM. It forces you to develop the standard in the same direction
+as the LLVM. In this case, this is not even a disadvantage as the code is from an intermediate representation, which is not meant to be readable. But, because of the lack of a abstractions in
+quantum computing, a code without any qubit or result type in it does not look familiar to look at.</p>
+</section>
+<section id="arrays">
+<h2>Arrays<a class="headerlink" href="#arrays" title="Link to this heading"></a></h2>
+<p>A natural extension of the qubit datatype is the array of qubits. It is natural because it is common that, for example, it is desirable to apply a gate to a set of qubits.
+This happens often in quantum algorithms with, for example, the Hadamard gate or with the rotation gates. In QIR, the array of qubits is defined as an opaque type and it requires
+a dynamic memory reservation using the <code class="docutils literal notranslate"><span class="pre">__quantum__rt__qubit_allocate_array</span></code> function. This function returns a pointer to the array of qubits.</p>
+<p>The problem with this approach is that quantum circuits have, to the best of our knowledge, a fixed number of qubits. This means that the number of qubits is known at compile time,
+making the dynamic memory reservation unnecessary and, more importantly, unnefficient. Not only because the memory allocation has to be done in execution time, slowing the execution
+of the quantum program, but also because it disables the possibility of performing optimizations in the quantum circuit. This is because the number of qubits in the array would not be known in
+compile time.</p>
+<p>A possible approach would be to treat the array of qubits as a fixed-size array. And LLVM allows to combine this fixed arrays with opaque pointers, using the following syntax: <code class="docutils literal notranslate"><span class="pre">&lt;4</span> <span class="pre">x</span> <span class="pre">ptr&gt;</span></code>. Where
+<code class="docutils literal notranslate"><span class="pre">4</span></code> is the number of elements in the array. In this case, to recover the qubit at position <code class="docutils literal notranslate"><span class="pre">3</span></code> in the array, the following code would be used:</p>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="nv">%qubit_array</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">&lt;</span><span class="m">4</span><span class="w"> </span><span class="k">x</span><span class="w"> </span><span class="kt">ptr</span><span class="p">&gt;</span><span class="w"> </span><span class="p">&lt;</span><span class="kt">ptr</span><span class="w"> </span><span class="k">inttoptr</span><span class="w"> </span><span class="p">(</span><span class="kt">i64</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="kt">ptr</span><span class="p">),</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="k">inttoptr</span><span class="w"> </span><span class="p">(</span><span class="kt">i64</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="kt">ptr</span><span class="p">),</span>
+<span class="w">                          </span><span class="kt">ptr</span><span class="w"> </span><span class="k">inttoptr</span><span class="w"> </span><span class="p">(</span><span class="kt">i64</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="kt">ptr</span><span class="p">),</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="k">inttoptr</span><span class="w"> </span><span class="p">(</span><span class="kt">i64</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="kt">ptr</span><span class="p">)&gt;</span>
+<span class="nv">%qubit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">getelementptr</span><span class="w"> </span><span class="nv">%Qubit</span><span class="p">,</span><span class="w"> </span><span class="p">&lt;</span><span class="m">4</span><span class="w"> </span><span class="k">x</span><span class="w"> </span><span class="kt">ptr</span><span class="p">&gt;</span><span class="w"> </span><span class="nv">%qubit_array</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="m">3</span>
+</pre></div>
+</div>
+<p>It can be observed how the qubit initialization employed by QIR is maintained (meaning the pieces of code <code class="docutils literal notranslate"><span class="pre">ptr</span> <span class="pre">inttoptr</span> <span class="pre">(i64</span> <span class="pre">i</span> <span class="pre">to</span> <span class="pre">ptr)</span></code>).</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="examples.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Graziella.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

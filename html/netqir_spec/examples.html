@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Examples &mdash; NetQIR 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="QIR clarifications" href="qir.html" />
+    <link rel="prev" title="Functions" href="functions.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            NetQIR
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">NetQIR Specification</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="datatypes.html">Datatypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#point-to-point-communication">Point-to-point communication</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#employement-of-qsend-and-qrecv-directives">Employement of <code class="docutils literal notranslate"><span class="pre">qsend</span></code> and <code class="docutils literal notranslate"><span class="pre">qrecv</span></code> directives</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#single-file-for-qsend-and-qrecv">Single file for <code class="docutils literal notranslate"><span class="pre">qsend</span></code> and <code class="docutils literal notranslate"><span class="pre">qrecv</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#one-file-for-each-directive">One file for each directive</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#sending-and-receiving-and-array-of-qubits">Sending and receiving and array of qubits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#teledata-vs-telegate">Teledata vs telegate</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#collective-communication">Collective communication</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#expose">Expose</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="qir.html">QIR clarifications</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">NetQIR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Examples</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/netqir_spec/examples.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h1>
+<p>In order to understand how this communication directives introduced by NetQIR work, we
+present several simple examples.</p>
+<p>Every piece of code from now on will begin with the following code block.</p>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="nv">%Qubit</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="k">opaque</span>
+<span class="nv">%Comm</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="k">opaque</span>
+<span class="vg">@netqir_comm_world</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">external</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="nv">%Comm</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+<p>So, in order to simplify the examples it is going to be ommited. These instructuctions define
+the <code class="docutils literal notranslate"><span class="pre">%Qubit</span></code> and the <code class="docutils literal notranslate"><span class="pre">%Comm</span></code> datatype along with the deafult communicator <code class="docutils literal notranslate"><span class="pre">&#64;netqir_comm_world</span></code>.
+There are other directives that are also going to be common, but the previous ones are used in every
+example.</p>
+<section id="point-to-point-communication">
+<h2>Point-to-point communication<a class="headerlink" href="#point-to-point-communication" title="Link to this heading"></a></h2>
+<p>In this section we will try to show how point-to-point communication works in NetQIR.</p>
+<section id="employement-of-qsend-and-qrecv-directives">
+<h3>Employement of <code class="docutils literal notranslate"><span class="pre">qsend</span></code> and <code class="docutils literal notranslate"><span class="pre">qrecv</span></code> directives<a class="headerlink" href="#employement-of-qsend-and-qrecv-directives" title="Link to this heading"></a></h3>
+<section id="single-file-for-qsend-and-qrecv">
+<h4>Single file for <code class="docutils literal notranslate"><span class="pre">qsend</span></code> and <code class="docutils literal notranslate"><span class="pre">qrecv</span></code><a class="headerlink" href="#single-file-for-qsend-and-qrecv" title="Link to this heading"></a></h4>
+<p>The following code shows how to use the <code class="docutils literal notranslate"><span class="pre">qsend</span></code> directive to send a qubit from one node to another.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Example of <code class="docutils literal notranslate"><span class="pre">qsend</span></code> and <code class="docutils literal notranslate"><span class="pre">qrecv</span></code> directives.</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@main</span><span class="p">(</span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv nv-Anonymous">%0</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv nv-Anonymous">%1</span><span class="p">)</span><span class="w"> </span><span class="vg">#0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nl">entry:</span>
+<span class="w">        </span><span class="c">; Variable allocation</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">alloca</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="c">; Init the NetQIR communication and get the rank of the process</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__init</span><span class="p">(</span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv nv-Anonymous">%0</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv nv-Anonymous">%1</span><span class="p">)</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%4</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__comm_rank</span><span class="p">(</span><span class="nv">%Comm</span><span class="p">*</span><span class="w"> </span><span class="vg">@netqir_comm_world</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="nv nv-Anonymous">%2</span><span class="p">)</span>
+
+<span class="w">        </span><span class="c">; Choose if it is the process receiving or sending the qubit</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%5</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">load</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="nv nv-Anonymous">%2</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%6</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">icmp</span><span class="w"> </span><span class="k">eq</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv nv-Anonymous">%5</span><span class="p">,</span><span class="w"> </span><span class="m">0</span>
+<span class="w">        </span><span class="k">br</span><span class="w"> </span><span class="kt">i1</span><span class="w"> </span><span class="nv nv-Anonymous">%6</span><span class="p">,</span><span class="w"> </span><span class="kt">label</span><span class="w"> </span><span class="nv nv-Anonymous">%7</span><span class="p">,</span><span class="w"> </span><span class="kt">label</span><span class="w"> </span><span class="nv nv-Anonymous">%9</span>
+
+<span class="w">    </span><span class="c">; Process sending</span>
+<span class="w">    </span><span class="nl">7:</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%8</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__qsend</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">*</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                                       </span><span class="nv">%Comm</span><span class="p">*</span><span class="w"> </span><span class="vg">@netqir_comm_world</span><span class="p">)</span>
+<span class="w">    </span><span class="c">; Process receiving</span>
+<span class="w">    </span><span class="nl">9:</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%10</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__qrecv</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">**</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                                        </span><span class="nv">%Comm</span><span class="p">*</span><span class="w"> </span><span class="vg">@netqir_comm_world</span><span class="p">)</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="c">; End of the program</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%11</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__finalize</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="c">; Function declaration</span>
+<span class="k">declare</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__init</span><span class="p">()</span>
+<span class="k">declare</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__qsend</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">*,</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="nv">%Comm</span><span class="p">)</span>
+<span class="k">declare</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__qrecv</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">**,</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="nv">%Comm</span><span class="p">)</span>
+<span class="k">declare</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__netqir__finalize</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="one-file-for-each-directive">
+<h4>One file for each directive<a class="headerlink" href="#one-file-for-each-directive" title="Link to this heading"></a></h4>
+<p>This previous program follows a very <em>MPI-like</em> structure, with a single file defining all the processes and an conditional
+structure to decide if the process is going to send or receive the qubit. It is also possible to have two files, one
+responsible for sending the qubit and the other for receiving it. Both structures will be perfectly valid, the only
+important thing is to give both processes the same communicator. But this is going to be the resposability of the backend.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Example of <code class="docutils literal notranslate"><span class="pre">qsend</span></code> directive in a single file.</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@main</span><span class="p">(</span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv nv-Anonymous">%0</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv nv-Anonymous">%1</span><span class="p">)</span><span class="w"> </span><span class="vg">#0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nl">entry:</span>
+<span class="w">        </span><span class="c">; Variable allocation</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">alloca</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="c">; Init the NetQIR communication and get the rank of the process</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__init</span><span class="p">(</span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv nv-Anonymous">%0</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv nv-Anonymous">%1</span><span class="p">)</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%4</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__comm_rank</span><span class="p">(</span><span class="nv">%Comm</span><span class="p">*</span><span class="w"> </span><span class="vg">@netqir_comm_world</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="nv nv-Anonymous">%2</span><span class="p">)</span>
+<span class="w">    </span>
+<span class="w">        </span><span class="c">; Process sending</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%5</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__qsend</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">*</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                                       </span><span class="nv">%Comm</span><span class="p">*</span><span class="w"> </span><span class="vg">@netqir_comm_world</span><span class="p">)</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="c">; End of the program</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%6</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__finalize</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="c">; Function declaration</span>
+<span class="k">declare</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__init</span><span class="p">()</span>
+<span class="k">declare</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__qsend</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">*,</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="nv">%Comm</span><span class="p">)</span>
+<span class="k">declare</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__netqir__finalize</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Example of <code class="docutils literal notranslate"><span class="pre">qrecv</span></code> directive in a single file.</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@main</span><span class="p">(</span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv nv-Anonymous">%0</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv nv-Anonymous">%1</span><span class="p">)</span><span class="w"> </span><span class="vg">#0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nl">entry:</span>
+<span class="w">        </span><span class="c">; Variable allocation</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">alloca</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="c">; Init the NetQIR communication and get the rank of the process</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__init</span><span class="p">(</span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv nv-Anonymous">%0</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv nv-Anonymous">%1</span><span class="p">)</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%4</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__comm_rank</span><span class="p">(</span><span class="nv">%Comm</span><span class="p">*</span><span class="w"> </span><span class="vg">@netqir_comm_world</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="nv nv-Anonymous">%2</span><span class="p">)</span>
+<span class="w">    </span>
+<span class="w">        </span><span class="c">; Process receiving</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%5</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__qrecv</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">**</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                                        </span><span class="nv">%Comm</span><span class="p">*</span><span class="w"> </span><span class="vg">@netqir_comm_world</span><span class="p">)</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="c">; End of the program</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%6</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__finalize</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="c">; Function declaration</span>
+<span class="k">declare</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__init</span><span class="p">()</span>
+<span class="k">declare</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__qrecv</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">*,</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="nv">%Comm</span><span class="p">)</span>
+<span class="k">declare</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__netqir__finalize</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Two examples have been shown for the <code class="docutils literal notranslate"><span class="pre">qsend</span></code> and <code class="docutils literal notranslate"><span class="pre">qrecv</span></code> directives: a <strong>single file for both process types</strong> and <strong>one
+file for each process type</strong>. The first example is commonly used by multicore infrastructure, e.g. MPI. On the other hand,
+the second example is intended for network communications where there is no perfectly coordinated computation.</p>
+</section>
+</section>
+<section id="sending-and-receiving-and-array-of-qubits">
+<h3>Sending and receiving and array of qubits<a class="headerlink" href="#sending-and-receiving-and-array-of-qubits" title="Link to this heading"></a></h3>
+<p>In this case, the structure employed—instead of <code class="docutils literal notranslate"><span class="pre">%Qubit</span></code>—is <code class="docutils literal notranslate"><span class="pre">%Array</span></code>. This is because we are going to
+send and receive a slot of qubits. This structure is the same one that QIR introduces, so the reader is referred to the
+<a class="reference external" href="https://github.com/qir-alliance/qir-spec">QIR specification</a> for more information.</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Example of <code class="docutils literal notranslate"><span class="pre">qsend</span></code> and <code class="docutils literal notranslate"><span class="pre">qrecv</span></code> directives with an array of qubits.</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="nv">%Array</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">type</span><span class="w"> </span><span class="k">opaque</span>
+
+<span class="k">define</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@main</span><span class="p">(</span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv nv-Anonymous">%0</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv nv-Anonymous">%1</span><span class="p">)</span><span class="w"> </span><span class="vg">#0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nl">entry:</span>
+<span class="w">        </span><span class="c">; Variable allocation</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">alloca</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span>
+<span class="w">        </span><span class="nv">%sent_qubits</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="nv">%Array</span><span class="p">*</span><span class="w"> </span><span class="vg">@__quantum__rt__qubit_allocate_array</span><span class="p">(</span><span class="kt">i64</span><span class="w"> </span><span class="m">3</span><span class="p">)</span>
+
+<span class="w">        </span><span class="c">; Init the NetQIR communication and get the rank of the process</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__init</span><span class="p">(</span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv nv-Anonymous">%0</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv nv-Anonymous">%1</span><span class="p">)</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%4</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__comm_rank</span><span class="p">(</span><span class="nv">%Comm</span><span class="p">*</span><span class="w"> </span><span class="vg">@netqir_comm_world</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="nv nv-Anonymous">%2</span><span class="p">)</span>
+
+<span class="w">        </span><span class="c">; Choose if it is the process receiving or sending the qubit</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%5</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">load</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="nv nv-Anonymous">%2</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%6</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">icmp</span><span class="w"> </span><span class="k">eq</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv nv-Anonymous">%5</span><span class="p">,</span><span class="w"> </span><span class="m">0</span>
+<span class="w">        </span><span class="k">br</span><span class="w"> </span><span class="kt">i1</span><span class="w"> </span><span class="nv nv-Anonymous">%6</span><span class="p">,</span><span class="w"> </span><span class="kt">label</span><span class="w"> </span><span class="nv nv-Anonymous">%7</span><span class="p">,</span><span class="w"> </span><span class="kt">label</span><span class="w"> </span><span class="nv nv-Anonymous">%9</span>
+
+<span class="w">    </span><span class="c">; Process sending</span>
+<span class="w">    </span><span class="nl">7:</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%8</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__qsend_array</span><span class="p">(</span><span class="nv">%Array</span><span class="p">*</span><span class="w"> </span><span class="nv">%sent_qubits</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="m">1</span><span class="p">,</span>
+<span class="w">                                             </span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="nv">%Comm</span><span class="p">*</span><span class="w"> </span><span class="vg">@netqir_comm_world</span><span class="p">)</span>
+<span class="w">        </span>
+<span class="w">    </span><span class="c">; Process receiving</span>
+<span class="w">    </span><span class="nl">9:</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%10</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__qrecv_array</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">**</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="m">0</span><span class="p">,</span>
+<span class="w">                                        </span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="nv">%Comm</span><span class="p">*</span><span class="w"> </span><span class="vg">@netqir_comm_world</span><span class="p">)</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="c">; End of the program</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%11</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__finalize</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="c">; Function declaration</span>
+<span class="k">declare</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__init</span><span class="p">()</span>
+<span class="k">declare</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__qsend_array</span><span class="p">(</span><span class="nv">%Array</span><span class="p">*,</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="nv">%Comm</span><span class="p">)</span>
+<span class="k">declare</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__qrecv_array</span><span class="p">(</span><span class="nv">%Array</span><span class="p">**,</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="nv">%Comm</span><span class="p">)</span>
+<span class="k">declare</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__netqir__finalize</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Similar to before, this could be splitted into two different files, one for sending and the other for receiving. In this case,
+this examplification will be ommited due to the similarity with the previous example.</p>
+</section>
+<section id="teledata-vs-telegate">
+<h3>Teledata vs telegate<a class="headerlink" href="#teledata-vs-telegate" title="Link to this heading"></a></h3>
+<p>Both <code class="docutils literal notranslate"><span class="pre">qsend</span></code> and <code class="docutils literal notranslate"><span class="pre">qrecv</span></code> directives have two versions: <code class="docutils literal notranslate"><span class="pre">qsend</span></code> and <code class="docutils literal notranslate"><span class="pre">qsend_array</span></code> and <code class="docutils literal notranslate"><span class="pre">qrecv</span></code> and <code class="docutils literal notranslate"><span class="pre">qrecv_array</span></code>, this
+was already mentioned in the previous examples. But, beneath this two versions, two more directives are available for each:
+on the first case <code class="docutils literal notranslate"><span class="pre">qsend_teledata</span></code> and <code class="docutils literal notranslate"><span class="pre">qsend_telegate</span></code>, and on the second case <code class="docutils literal notranslate"><span class="pre">qrecv_array_teledata</span></code> and <code class="docutils literal notranslate"><span class="pre">qrecv_array_telegate</span></code>.
+This directives are used to explicitly determine whether the communication is done with the teledata protocol or with the telegate protocol.</p>
+<p>This way of marking the communication protocol is not random. A flag inside the communication directives could be used to determine the
+protocol. But this flag could represent a barrier for compiler optimizations, because in order to determine which is the protocol
+it should know the value of the aforementioned flag. This could be a problem when the flag is not a constant.</p>
+<p>The use of these directives is exactly the same as the previous ones, the only difference is that the programmer has the control over the
+protocol used for the communication. But the actual code is exactly the same except for the directive name.</p>
+</section>
+</section>
+<section id="collective-communication">
+<h2>Collective communication<a class="headerlink" href="#collective-communication" title="Link to this heading"></a></h2>
+<p>After seing the most basic communication directives, i.e. sending and receiving information between two different parties, we are going to
+see how collective communication works in NetQIR. This type of communication represents a one to many, or vice versa, way of communicating,
+where one party sends information to all the others or all the parties send information to one.</p>
+<p>This is pretty common in classical computing with, for example, MPI directives such as <code class="docutils literal notranslate"><span class="pre">MPI_Gather</span></code>, <code class="docutils literal notranslate"><span class="pre">MPI_Scatter</span></code>, <code class="docutils literal notranslate"><span class="pre">MPI_Bcast</span></code>, etc.
+This are operations that, nevertheless, are not directly translatable to quantum computing. There are several reasons for that, but the most
+important one is the non-cloning theorem. The fact that a quantum state cannot be copied eliminates the possibility of getting a broadcast
+operation understood as the classical one: one party sends a copy of the information to all the others.</p>
+<p>This is why the <a class="reference internal" href="functions.html#collective-communication"><span class="std std-ref">Collective communication</span></a> section has introduced several functions that adapt the collective
+communication paradigm to quantum computing. These functions are the targets of the following examples.</p>
+<section id="expose">
+<h3>Expose<a class="headerlink" href="#expose" title="Link to this heading"></a></h3>
+<p>First, we will start with a simple example. In this case, one process exposes a qubit and all the other nodes perform a CNOT operation on this
+qubit.</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">Example of the <code class="docutils literal notranslate"><span class="pre">expose</span></code> directive.</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
+<div class="highlight-llvm notranslate"><div class="highlight"><pre><span></span><span class="k">define</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@main</span><span class="p">(</span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv nv-Anonymous">%0</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv nv-Anonymous">%1</span><span class="p">)</span><span class="w"> </span><span class="vg">#0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nl">entry:</span>
+<span class="w">        </span><span class="c">; Variable allocation</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">alloca</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="c">; Init the NetQIR communication and get the rank of the process</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__init</span><span class="p">(</span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv nv-Anonymous">%0</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="nv nv-Anonymous">%1</span><span class="p">)</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%4</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__comm_rank</span><span class="p">(</span><span class="nv">%Comm</span><span class="p">*</span><span class="w"> </span><span class="vg">@netqir_comm_world</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="nv nv-Anonymous">%2</span><span class="p">)</span>
+
+<span class="w">        </span><span class="c">; Choose if it is the process receiving or sending the qubit</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%5</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">load</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">ptr</span><span class="w"> </span><span class="nv nv-Anonymous">%2</span><span class="p">,</span><span class="w"> </span><span class="k">align</span><span class="w"> </span><span class="m">4</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%6</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">icmp</span><span class="w"> </span><span class="k">eq</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="nv nv-Anonymous">%5</span><span class="p">,</span><span class="w"> </span><span class="m">0</span>
+<span class="w">        </span><span class="k">br</span><span class="w"> </span><span class="kt">i1</span><span class="w"> </span><span class="nv nv-Anonymous">%6</span><span class="p">,</span><span class="w"> </span><span class="kt">label</span><span class="w"> </span><span class="nv nv-Anonymous">%7</span><span class="p">,</span><span class="w"> </span><span class="kt">label</span><span class="w"> </span><span class="nv nv-Anonymous">%9</span>
+
+<span class="w">    </span><span class="c">; Process sending</span>
+<span class="w">    </span><span class="nl">7:</span>
+
+<span class="w">        </span><span class="nv nv-Anonymous">%8</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__expose</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">*</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                                       </span><span class="nv">%Comm</span><span class="p">*</span><span class="w"> </span><span class="vg">@netqir_comm_world</span><span class="p">)</span>
+<span class="w">    </span><span class="c">; Process receiving</span>
+<span class="w">    </span><span class="nl">9:</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%10</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__expose</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">*</span><span class="w"> </span><span class="nv">%a</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="k">noundef</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                                       </span><span class="nv">%Comm</span><span class="p">*</span><span class="w"> </span><span class="vg">@netqir_comm_world</span><span class="p">)</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%11</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__quantum__qis__cnot__body</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">*</span><span class="w"> </span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="nv">%Qubit</span><span class="p">*</span><span class="w"> </span><span class="nv">%a</span><span class="p">)</span>
+
+<span class="w">        </span><span class="c">; End of the program</span>
+<span class="w">        </span><span class="nv nv-Anonymous">%12</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__finalize</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="c">; Function declaration</span>
+<span class="k">declare</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__init</span><span class="p">()</span>
+<span class="k">declare</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="vg">@__netqir__expose</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">*,</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="nv">%Comm</span><span class="p">)</span>
+<span class="k">declare</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__quantum__qis__cnot__body</span><span class="p">(</span><span class="nv">%Qubit</span><span class="p">*,</span><span class="w"> </span><span class="nv">%Qubit</span><span class="p">*)</span>
+<span class="k">declare</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="vg">@__netqir__finalize</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="functions.html" class="btn btn-neutral float-left" title="Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="qir.html" class="btn btn-neutral float-right" title="QIR clarifications" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Graziella.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

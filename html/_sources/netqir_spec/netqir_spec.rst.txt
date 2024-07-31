@@ -1,0 +1,7 @@
+NetQIR Specification
+====================
+
+.. toctree::
+   :maxdepth: 2
+
+   datatypes

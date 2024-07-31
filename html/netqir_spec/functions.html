@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Functions &mdash; NetQIR 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=d45e8c67"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="Datatypes" href="datatypes.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            NetQIR
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">NetQIR Specification</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="datatypes.html">Datatypes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#state-functions">State functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv414__netqir__init3i323ptr"><code class="docutils literal notranslate"><span class="pre">__netqir__init()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv418__netqir__finalizev"><code class="docutils literal notranslate"><span class="pre">__netqir__finalize()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#operate-datatypes-functions">Operate datatypes functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#comm-functions"><code class="docutils literal notranslate"><span class="pre">%Comm</span></code> functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv421__netqir__comm_createP4CommP5GroupPP4Comm"><code class="docutils literal notranslate"><span class="pre">__netqir__comm_create()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv421__netqir__comm_createP4CommPP4Comm"><code class="docutils literal notranslate"><span class="pre">__netqir__comm_create()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv423__netqir__comm_get_nameP4Comm3ptr3ptr"><code class="docutils literal notranslate"><span class="pre">__netqir__comm_get_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv419__netqir__comm_rankP4Comm3ptr"><code class="docutils literal notranslate"><span class="pre">__netqir__comm_rank()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv423__netqir__comm_set_nameP4Comm3ptr"><code class="docutils literal notranslate"><span class="pre">__netqir__comm_set_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv419__netqir__comm_sizeP4Comm3ptr"><code class="docutils literal notranslate"><span class="pre">__netqir__comm_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv420__netqir__comm_splitP4Comm3i323i32PP4Comm"><code class="docutils literal notranslate"><span class="pre">__netqir__comm_split()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#group-functions"><code class="docutils literal notranslate"><span class="pre">%Group</span></code> functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv427__netqir__comm_create_groupP4CommP5GroupPP4Comm"><code class="docutils literal notranslate"><span class="pre">__netqir__comm_create_group()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv420__netqir__comm_groupP4CommPP5Group"><code class="docutils literal notranslate"><span class="pre">__netqir__comm_group()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv426__netqir__group_differenceP5GroupP5GroupPP5Group"><code class="docutils literal notranslate"><span class="pre">__netqir__group_difference()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv421__netqir__group_unionP5GroupP5GroupPP5Group"><code class="docutils literal notranslate"><span class="pre">__netqir__group_union()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv428__netqir__group_intersectionP5GroupP5GroupPP5Group"><code class="docutils literal notranslate"><span class="pre">__netqir__group_intersection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv420__netqir__group_inclP5Group3i323ptrPP5Group"><code class="docutils literal notranslate"><span class="pre">__netqir__group_incl()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv426__netqir__group_range_inclP5Group3i323ptrPP5Group"><code class="docutils literal notranslate"><span class="pre">__netqir__group_range_incl()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv420__netqir__group_rankP5Group3ptr"><code class="docutils literal notranslate"><span class="pre">__netqir__group_rank()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv420__netqir__group_sizeP5Group3ptr"><code class="docutils literal notranslate"><span class="pre">__netqir__group_size()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cartesian-topology-functions">Cartesian topology functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv421__netqir__cart_coordsP4Comm3i323i323ptr"><code class="docutils literal notranslate"><span class="pre">__netqir__cart_coords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv421__netqir__cart_createP4Comm3i323ptr3ptr2i1PP4Comm"><code class="docutils literal notranslate"><span class="pre">__netqir__cart_create()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv418__netqir__cart_getP4Comm3i323ptr3ptr3ptr"><code class="docutils literal notranslate"><span class="pre">__netqir__cart_get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv420__netqir__cart_shiftP4Comm3i323i323ptr3ptr"><code class="docutils literal notranslate"><span class="pre">__netqir__cart_shift()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv418__netqir__cart_subP4Comm3ptrPP4Comm"><code class="docutils literal notranslate"><span class="pre">__netqir__cart_sub()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#communication-functions">Communication functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#point-to-point-communication">Point-to-point communication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sending-functions">Sending functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#receive-functions">Receive functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#measurement-functions">Measurement functions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#collective-communication">Collective communication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#scatter">Scatter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gather">Gather</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#expose">Expose</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reduce">Reduce</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qir.html">QIR clarifications</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">NetQIR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Functions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/netqir_spec/functions.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="functions">
+<h1>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h1>
+<section id="state-functions">
+<h2>State functions<a class="headerlink" href="#state-functions" title="Link to this heading"></a></h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv414__netqir__init3i323ptr">
+<span id="_CPPv314__netqir__init3i323ptr"></span><span id="_CPPv214__netqir__init3i323ptr"></span><span id="__netqir__init__i32.ptr"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__init</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">argc</span></span>, <span class="n"><span class="pre">ptr</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">argv</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414__netqir__init3i323ptr" title="Link to this definition"></a><br /></dt>
+<dd><p>Initializes the distributed environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i32 argc</strong> – Number of arguments.</p></li>
+<li><p><strong>ptr argv</strong> – Arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv418__netqir__finalizev">
+<span id="_CPPv318__netqir__finalizev"></span><span id="_CPPv218__netqir__finalizev"></span><span id="__netqir__finalize__void"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__finalize</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418__netqir__finalizev" title="Link to this definition"></a><br /></dt>
+<dd><p>Finalize the distributed environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="operate-datatypes-functions">
+<h2>Operate datatypes functions<a class="headerlink" href="#operate-datatypes-functions" title="Link to this heading"></a></h2>
+<p>Most of these operations are born from MPI directives. They have the same functionalities, but with a quantum
+backend behind them. <strong>#TODO</strong>: Add more information about the functions.</p>
+<section id="comm-functions">
+<h3><code class="docutils literal notranslate"><span class="pre">%Comm</span></code> functions<a class="headerlink" href="#comm-functions" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">%Comm</span></code> datatype is used to define a communicator, which is a group of nodes that can communicate with each other. The communicator is used to define the scope of the communication, and it is used to create a new communicator from a subset of nodes from another communicator, as well as to create a communicator as a copy of another.</p>
+<p>The different functions that can be used with the <code class="docutils literal notranslate"><span class="pre">%Comm</span></code> datatype are:</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421__netqir__comm_createP4CommP5GroupPP4Comm">
+<span id="_CPPv321__netqir__comm_createP4CommP5GroupPP4Comm"></span><span id="_CPPv221__netqir__comm_createP4CommP5GroupPP4Comm"></span><span id="__netqir__comm_create__CommP.GroupP.CommPP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__comm_create</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">old_comm</span></span>, <span class="n"><span class="pre">Group</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">group</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">new_comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421__netqir__comm_createP4CommP5GroupPP4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates a new communicator from a subset of nodes from another communicator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Comm* old_comm</strong> – Old communicator from which the new is created.</p></li>
+<li><p><strong>Group* group</strong> – Group of nodes inside the new communicator.</p></li>
+<li><p><strong>Comm** new_comm</strong> – New communicator from group.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421__netqir__comm_createP4CommPP4Comm">
+<span id="_CPPv321__netqir__comm_createP4CommPP4Comm"></span><span id="_CPPv221__netqir__comm_createP4CommPP4Comm"></span><span id="__netqir__comm_create__CommP.CommPP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__comm_create</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">old_comm</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">new_comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421__netqir__comm_createP4CommPP4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates a new communicator as a copy of another.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Comm* old_comm</strong> – Old communicator from which the new is created.</p></li>
+<li><p><strong>Comm** new_comm</strong> – New communicator created.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv423__netqir__comm_get_nameP4Comm3ptr3ptr">
+<span id="_CPPv323__netqir__comm_get_nameP4Comm3ptr3ptr"></span><span id="_CPPv223__netqir__comm_get_nameP4Comm3ptr3ptr"></span><span id="__netqir__comm_get_name__CommP.ptr.ptr"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__comm_get_name</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="n"><span class="pre">ptr</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span>, <span class="n"><span class="pre">ptr</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">length</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv423__netqir__comm_get_nameP4Comm3ptr3ptr" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the name of the communicator and its length.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Comm* comm</strong> – Communicator of interest.</p></li>
+<li><p><strong>ptr name</strong> – Name of the communicator.</p></li>
+<li><p><strong>ptr length</strong> – Length of the name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv419__netqir__comm_rankP4Comm3ptr">
+<span id="_CPPv319__netqir__comm_rankP4Comm3ptr"></span><span id="_CPPv219__netqir__comm_rankP4Comm3ptr"></span><span id="__netqir__comm_rank__CommP.ptr"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__comm_rank</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="n"><span class="pre">ptr</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rank</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419__netqir__comm_rankP4Comm3ptr" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the rank of the calling process on the communicator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Comm* comm</strong> – Communicator.</p></li>
+<li><p><strong>ptr rank</strong> – Rank of the process.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv423__netqir__comm_set_nameP4Comm3ptr">
+<span id="_CPPv323__netqir__comm_set_nameP4Comm3ptr"></span><span id="_CPPv223__netqir__comm_set_nameP4Comm3ptr"></span><span id="__netqir__comm_set_name__CommP.ptr"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__comm_set_name</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="n"><span class="pre">ptr</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv423__netqir__comm_set_nameP4Comm3ptr" title="Link to this definition"></a><br /></dt>
+<dd><p>Sets the name of the communicator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Comm* comm</strong> – Communicator.</p></li>
+<li><p><strong>ptr rank</strong> – New name of the communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv419__netqir__comm_sizeP4Comm3ptr">
+<span id="_CPPv319__netqir__comm_sizeP4Comm3ptr"></span><span id="_CPPv219__netqir__comm_sizeP4Comm3ptr"></span><span id="__netqir__comm_size__CommP.ptr"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__comm_size</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="n"><span class="pre">ptr</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv419__netqir__comm_sizeP4Comm3ptr" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the number of nodes, aka size, in the communicator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Comm* comm</strong> – Communicator.</p></li>
+<li><p><strong>ptr size</strong> – Size of the communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv420__netqir__comm_splitP4Comm3i323i32PP4Comm">
+<span id="_CPPv320__netqir__comm_splitP4Comm3i323i32PP4Comm"></span><span id="_CPPv220__netqir__comm_splitP4Comm3i323i32PP4Comm"></span><span id="__netqir__comm_split__CommP.i32.i32.CommPP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__comm_split</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">old_comm</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">color</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">key</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">new_comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420__netqir__comm_splitP4Comm3i323i32PP4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates a communicator for each color.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Comm* old_comm</strong> – Communicator.</p></li>
+<li><p><strong>i32 color</strong> – Value to assign to communicator. Processes with the same color result into the same communicator.</p></li>
+<li><p><strong>i32 key</strong> – Control of the order in which processes are ranked.</p></li>
+<li><p><strong>Comm** new_comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="group-functions">
+<h3><code class="docutils literal notranslate"><span class="pre">%Group</span></code> functions<a class="headerlink" href="#group-functions" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">%Group</span></code> datatype is used to define a set of nodes, thus, the operations that can be performed with this datatype are operations between sets, such as the union or intersection of nodes.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv427__netqir__comm_create_groupP4CommP5GroupPP4Comm">
+<span id="_CPPv327__netqir__comm_create_groupP4CommP5GroupPP4Comm"></span><span id="_CPPv227__netqir__comm_create_groupP4CommP5GroupPP4Comm"></span><span id="__netqir__comm_create_group__CommP.GroupP.CommPP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__comm_create_group</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="n"><span class="pre">Group</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">group</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">new_comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv427__netqir__comm_create_groupP4CommP5GroupPP4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates a communicator for each color.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Comm* comm</strong> – Communicator.</p></li>
+<li><p><strong>Group* group</strong> – Subset of the group of nodes in the <code class="docutils literal notranslate"><span class="pre">comm</span></code> communicator.</p></li>
+<li><p><strong>Comm** new_comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv420__netqir__comm_groupP4CommPP5Group">
+<span id="_CPPv320__netqir__comm_groupP4CommPP5Group"></span><span id="_CPPv220__netqir__comm_groupP4CommPP5Group"></span><span id="__netqir__comm_group__CommP.GroupPP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__comm_group</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="n"><span class="pre">Group</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">group</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420__netqir__comm_groupP4CommPP5Group" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the group associated with the communicator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Comm* comm</strong> – Communicator.</p></li>
+<li><p><strong>Group* group</strong> – Group in the communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv426__netqir__group_differenceP5GroupP5GroupPP5Group">
+<span id="_CPPv326__netqir__group_differenceP5GroupP5GroupPP5Group"></span><span id="_CPPv226__netqir__group_differenceP5GroupP5GroupPP5Group"></span><span id="__netqir__group_difference__GroupP.GroupP.GroupPP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__group_difference</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Group</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">group1</span></span>, <span class="n"><span class="pre">Group</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">group2</span></span>, <span class="n"><span class="pre">Group</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">new_group</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv426__netqir__group_differenceP5GroupP5GroupPP5Group" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns a group resulting from the difference of two groups, understanding difference as the mathematical one:
+<span class="math notranslate nohighlight">\(A \setminus B = \{x \ | \ x \in A \ \text{and} \ x \notin B\}\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Group* group1</strong> – Fisrt group (representing <span class="math notranslate nohighlight">\(A\)</span> in the example).</p></li>
+<li><p><strong>Group* group2</strong> – Second group (representing <span class="math notranslate nohighlight">\(B\)</span> in the example).</p></li>
+<li><p><strong>Group** new_group</strong> – Difference of the first and the second group.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421__netqir__group_unionP5GroupP5GroupPP5Group">
+<span id="_CPPv321__netqir__group_unionP5GroupP5GroupPP5Group"></span><span id="_CPPv221__netqir__group_unionP5GroupP5GroupPP5Group"></span><span id="__netqir__group_union__GroupP.GroupP.GroupPP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__group_union</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Group</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">group1</span></span>, <span class="n"><span class="pre">Group</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">group2</span></span>, <span class="n"><span class="pre">Group</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">new_group</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421__netqir__group_unionP5GroupP5GroupPP5Group" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns a group resulting from the union of two groups, understanding union as the mathematical one:
+<span class="math notranslate nohighlight">\(A \cup B = \{x \ | \ x \in A \ \text{or} \ x \in B\}\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Group* group1</strong> – Fisrt group.</p></li>
+<li><p><strong>Group* group2</strong> – Second group.</p></li>
+<li><p><strong>Group** new_group</strong> – Union of the first and the second group.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv428__netqir__group_intersectionP5GroupP5GroupPP5Group">
+<span id="_CPPv328__netqir__group_intersectionP5GroupP5GroupPP5Group"></span><span id="_CPPv228__netqir__group_intersectionP5GroupP5GroupPP5Group"></span><span id="__netqir__group_intersection__GroupP.GroupP.GroupPP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__group_intersection</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Group</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">group1</span></span>, <span class="n"><span class="pre">Group</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">group2</span></span>, <span class="n"><span class="pre">Group</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">new_group</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv428__netqir__group_intersectionP5GroupP5GroupPP5Group" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns a group resulting from the intersection of two groups, understanding intersection as the mathematical one:
+<span class="math notranslate nohighlight">\(A \cap B = \{x \ | \ x \in A \ \text{and} \ x \in B\}\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Group* group1</strong> – Fisrt group.</p></li>
+<li><p><strong>Group* group2</strong> – Second group.</p></li>
+<li><p><strong>Group** new_group</strong> – Intersection of the first and the second group.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv420__netqir__group_inclP5Group3i323ptrPP5Group">
+<span id="_CPPv320__netqir__group_inclP5Group3i323ptrPP5Group"></span><span id="_CPPv220__netqir__group_inclP5Group3i323ptrPP5Group"></span><span id="__netqir__group_incl__GroupP.i32.ptr.GroupPP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__group_incl</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Group</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">old_group</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rank_num</span></span>, <span class="n"><span class="pre">ptr</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ranks</span></span>, <span class="n"><span class="pre">Group</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">new_group</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420__netqir__group_inclP5Group3i323ptrPP5Group" title="Link to this definition"></a><br /></dt>
+<dd><p>Produces a group by reordering an existing group and taking only listed members.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Group* old_group</strong> – Old group.</p></li>
+<li><p><strong>i32 rank_num</strong> – Amount of nodes in the new group.</p></li>
+<li><p><strong>ptr ranks</strong> – List of ranks (nodes) to include.</p></li>
+<li><p><strong>Group** new_group</strong> – New group from the listed nodes.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv426__netqir__group_range_inclP5Group3i323ptrPP5Group">
+<span id="_CPPv326__netqir__group_range_inclP5Group3i323ptrPP5Group"></span><span id="_CPPv226__netqir__group_range_inclP5Group3i323ptrPP5Group"></span><span id="__netqir__group_range_incl__GroupP.i32.ptr.GroupPP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__group_range_incl</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Group</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">old_group</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n</span></span>, <span class="n"><span class="pre">ptr</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ranges</span></span>, <span class="n"><span class="pre">Group</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">new_group</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv426__netqir__group_range_inclP5Group3i323ptrPP5Group" title="Link to this definition"></a><br /></dt>
+<dd><p>Produces a new group from ranges of ranks in an existing group.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Group* old_group</strong> – Old group.</p></li>
+<li><p><strong>i32 n</strong> – Size of the array ranges.</p></li>
+<li><p><strong>ptr ranges</strong> – Array of triples of the form (first rank, last rank, stride) indicating which ranks have
+have to be included <code class="docutils literal notranslate"><span class="pre">old_group</span></code>.</p></li>
+<li><p><strong>Group** new_group</strong> – New group from the listed nodes.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv420__netqir__group_rankP5Group3ptr">
+<span id="_CPPv320__netqir__group_rankP5Group3ptr"></span><span id="_CPPv220__netqir__group_rankP5Group3ptr"></span><span id="__netqir__group_rank__GroupP.ptr"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__group_rank</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Group</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">group</span></span>, <span class="n"><span class="pre">ptr</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rank</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420__netqir__group_rankP5Group3ptr" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the rank of the calling process in the group.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Group* group</strong> – Group of interest.</p></li>
+<li><p><strong>ptr rank</strong> – Rank of the calling process.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv420__netqir__group_sizeP5Group3ptr">
+<span id="_CPPv320__netqir__group_sizeP5Group3ptr"></span><span id="_CPPv220__netqir__group_sizeP5Group3ptr"></span><span id="__netqir__group_size__GroupP.ptr"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__group_size</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Group</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">group</span></span>, <span class="n"><span class="pre">ptr</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420__netqir__group_sizeP5Group3ptr" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the number of processes (size) of the group.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Group* group</strong> – Group of interest.</p></li>
+<li><p><strong>ptr size</strong> – Size of the group.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="cartesian-topology-functions">
+<h3>Cartesian topology functions<a class="headerlink" href="#cartesian-topology-functions" title="Link to this heading"></a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421__netqir__cart_coordsP4Comm3i323i323ptr">
+<span id="_CPPv321__netqir__cart_coordsP4Comm3i323i323ptr"></span><span id="_CPPv221__netqir__cart_coordsP4Comm3i323i323ptr"></span><span id="__netqir__cart_coords__CommP.i32.i32.ptr"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__cart_coords</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rank</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">maxdims</span></span>, <span class="n"><span class="pre">ptr</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">coords</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421__netqir__cart_coordsP4Comm3i323i323ptr" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns coordinates of a process in a cartesian topology.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Group* group</strong> – Group of interest.</p></li>
+<li><p><strong>i32 rank</strong> – Rank of the calling process.</p></li>
+<li><p><strong>i32 maxdims</strong> – Number of dimensions of the cartesian topology.</p></li>
+<li><p><strong>ptr coords</strong> – Coordinates of the process in the cartesian topology.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421__netqir__cart_createP4Comm3i323ptr3ptr2i1PP4Comm">
+<span id="_CPPv321__netqir__cart_createP4Comm3i323ptr3ptr2i1PP4Comm"></span><span id="_CPPv221__netqir__cart_createP4Comm3i323ptr3ptr2i1PP4Comm"></span><span id="__netqir__cart_create__CommP.i32.ptr.ptr.i1.CommPP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__cart_create</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">old_comm</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ndims</span></span>, <span class="n"><span class="pre">ptr</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dims</span></span>, <span class="n"><span class="pre">ptr</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">periods</span></span>, <span class="n"><span class="pre">i1</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">reorder</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm_cart</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421__netqir__cart_createP4Comm3i323ptr3ptr2i1PP4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates a new communicator applying a cartesian topology to a previously created communicator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Comm* old_comm</strong> – Previously created communicator.</p></li>
+<li><p><strong>i32 ndims</strong> – Number of dimensions of the cartesian topology.</p></li>
+<li><p><strong>ptr dims</strong> – Array of size <code class="docutils literal notranslate"><span class="pre">ndims</span></code> with the number of nodes in each dimension.</p></li>
+<li><p><strong>ptr periods</strong> – Array of size <code class="docutils literal notranslate"><span class="pre">ndims</span></code> with the periodicity of each dimension.</p></li>
+<li><p><strong>i1 reorder</strong> – Flag to allow the reordering of the ranks.</p></li>
+<li><p><strong>Comm** comm_cart</strong> – New communicator with the cartesian topology.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv418__netqir__cart_getP4Comm3i323ptr3ptr3ptr">
+<span id="_CPPv318__netqir__cart_getP4Comm3i323ptr3ptr3ptr"></span><span id="_CPPv218__netqir__cart_getP4Comm3i323ptr3ptr3ptr"></span><span id="__netqir__cart_get__CommP.i32.ptr.ptr.ptr"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__cart_get</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ndims</span></span>, <span class="n"><span class="pre">ptr</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dims</span></span>, <span class="n"><span class="pre">ptr</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">periods</span></span>, <span class="n"><span class="pre">ptr</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">coords</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418__netqir__cart_getP4Comm3i323ptr3ptr3ptr" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the cartesian topology information of a given communicator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Comm* comm</strong> – Communicator of interest.</p></li>
+<li><p><strong>i32 maxdims</strong> – Length of the returned arrays.</p></li>
+<li><p><strong>ptr dims</strong> – Number of nodes in each dimension.</p></li>
+<li><p><strong>ptr periods</strong> – Periodicity of each dimension.</p></li>
+<li><p><strong>ptr coords</strong> – Coordinates of the coordinates process in the cartesian topology.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv420__netqir__cart_shiftP4Comm3i323i323ptr3ptr">
+<span id="_CPPv320__netqir__cart_shiftP4Comm3i323i323ptr3ptr"></span><span id="_CPPv220__netqir__cart_shiftP4Comm3i323i323ptr3ptr"></span><span id="__netqir__cart_shift__CommP.i32.i32.ptr.ptr"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__cart_shift</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">direction</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">displacement</span></span>, <span class="n"><span class="pre">ptr</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">source</span></span>, <span class="n"><span class="pre">ptr</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">destination</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv420__netqir__cart_shiftP4Comm3i323i323ptr3ptr" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the source and destination ranks of the process shifted in a cartesian topology.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Comm* comm</strong> – Communicator of interest.</p></li>
+<li><p><strong>i32 direction</strong> – Coordinate dimension that suffers the shift.</p></li>
+<li><p><strong>i32 displacement</strong> – Displacement of the shift, being positive (negative) represents a upwards (downwards) shift.</p></li>
+<li><p><strong>ptr source</strong> – Rank of the source process.</p></li>
+<li><p><strong>ptr destination</strong> – Rank of the destination process.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv418__netqir__cart_subP4Comm3ptrPP4Comm">
+<span id="_CPPv318__netqir__cart_subP4Comm3ptrPP4Comm"></span><span id="_CPPv218__netqir__cart_subP4Comm3ptrPP4Comm"></span><span id="__netqir__cart_sub__CommP.ptr.CommPP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__cart_sub</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="n"><span class="pre">ptr</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">remain_dims</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">new_comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418__netqir__cart_subP4Comm3ptrPP4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Partitions a communicator into subgroups which form lower-dimensional cartesian subgrids.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Comm* comm</strong> – Communicator of interest with a cartesian topology.</p></li>
+<li><p><strong>ptr remain_dims</strong> – Array determining if the i<sup>th</sup> dimension is kept in the subgrid or not.</p></li>
+<li><p><strong>Comm** new_comm</strong> – Communicator containing the subgrid that includes the calling process.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="communication-functions">
+<h2>Communication functions<a class="headerlink" href="#communication-functions" title="Link to this heading"></a></h2>
+<p>Communication functions are intended to exchange quantum information, either of an individual qubit using the <code class="docutils literal notranslate"><span class="pre">%Qubit</span></code> datatype or of an array of qubits using <code class="docutils literal notranslate"><span class="pre">%Array</span></code>.</p>
+<p>Communication can be point-to-point or collective. Communication can be <strong>point-to-point</strong> or <strong>collective</strong>. The first type establishes sender and receiver communication from one compute node to another. Collective communications, on the other hand, allow information to be sent from several nodes to several nodes within the same communicator.</p>
+<section id="point-to-point-communication">
+<h3>Point-to-point communication<a class="headerlink" href="#point-to-point-communication" title="Link to this heading"></a></h3>
+<p>Point-to-point communications involves a transfer of information from one node (sender) to another (receiver). To achieve this goal, it is therefore necessary to have both a sending and a receiving function to establish a correct synchronisation between the distributed devices.</p>
+<a class="reference internal image-reference" href="../_images/qsend_receive.svg"><img alt="../_images/qsend_receive.svg" class="align-center" src="../_images/qsend_receive.svg" width="400px" /></a>
+<p></p>
+<p>In addition, this functions has different versions in function use one or another technique for the distribution. The distribution techniques that can be chosen are “teledata” and “telegate”.</p>
+<ul class="simple">
+<li><p><strong>Teledata</strong>: This technique sends the qubit data to the destination rank.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/teledata.svg"><img alt="../_images/teledata.svg" class="align-center" src="../_images/teledata.svg" width="400px" /></a>
+<p></p>
+<ul class="simple">
+<li><p><strong>Telegate</strong>: This technique “expose” the qubit reference to the destination rank.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/telegate.svg"><img alt="../_images/telegate.svg" class="align-center" src="../_images/telegate.svg" width="400px" /></a>
+<p></p>
+<p>Finally, also include directives to perform and send the result of qubit measurements. These functions indicate that the sender measures one or more qubits and sends the classical (binary) result to the receiver.</p>
+<a class="reference internal image-reference" href="../_images/measure_send.svg"><img alt="../_images/measure_send.svg" class="align-center" src="../_images/measure_send.svg" width="400px" /></a>
+<section id="sending-functions">
+<h4>Sending functions<a class="headerlink" href="#sending-functions" title="Link to this heading"></a></h4>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421__netqir__qsend_arrayP5Array3i323i32P4Comm">
+<span id="_CPPv321__netqir__qsend_arrayP5Array3i323i32P4Comm"></span><span id="_CPPv221__netqir__qsend_arrayP5Array3i323i32P4Comm"></span><span id="__netqir__qsend_array__ArrayP.i32.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__qsend_array</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">array</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">count</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dest</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421__netqir__qsend_arrayP5Array3i323i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Generic blocking send for an array of qubits. The compiler decides which sending technique is used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Array* array</strong> – Array of qubits.</p></li>
+<li><p><strong>i32 count</strong> – Number of qubits.</p></li>
+<li><p><strong>i32 dest</strong> – Destination rank.</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv430__netqir__qsend_array_teledataP5Array3i323i32P4Comm">
+<span id="_CPPv330__netqir__qsend_array_teledataP5Array3i323i32P4Comm"></span><span id="_CPPv230__netqir__qsend_array_teledataP5Array3i323i32P4Comm"></span><span id="__netqir__qsend_array_teledata__ArrayP.i32.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__qsend_array_teledata</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">array</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">count</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dest</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv430__netqir__qsend_array_teledataP5Array3i323i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Generic blocking send for an array of qubits using the teledata technique.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Array* array</strong> – Array of qubits.</p></li>
+<li><p><strong>i32 count</strong> – Number of qubits.</p></li>
+<li><p><strong>i32 dest</strong> – Destination rank.</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv430__netqir__qsend_array_telegateP5Array3i323i32P4Comm">
+<span id="_CPPv330__netqir__qsend_array_telegateP5Array3i323i32P4Comm"></span><span id="_CPPv230__netqir__qsend_array_telegateP5Array3i323i32P4Comm"></span><span id="__netqir__qsend_array_telegate__ArrayP.i32.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__qsend_array_telegate</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">array</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">count</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dest</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv430__netqir__qsend_array_telegateP5Array3i323i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Generic blocking send for an array of qubits using the telegate technique.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Array* array</strong> – Array of qubits.</p></li>
+<li><p><strong>i32 count</strong> – Number of qubits.</p></li>
+<li><p><strong>i32 dest</strong> – Destination rank.</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv415__netqir__qsendP5Qubit3i32P4Comm">
+<span id="_CPPv315__netqir__qsendP5Qubit3i32P4Comm"></span><span id="_CPPv215__netqir__qsendP5Qubit3i32P4Comm"></span><span id="__netqir__qsend__QubitP.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__qsend</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Qubit</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">qubit</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dest</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415__netqir__qsendP5Qubit3i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Generic blocking send for a single qubit. The compiler decides which sending technique is used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Qubit* qubit</strong> – Qubit to send.</p></li>
+<li><p><strong>i32 dest</strong> – Destination rank.</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv424__netqir__qsend_teledataP5Qubit3i32P4Comm">
+<span id="_CPPv324__netqir__qsend_teledataP5Qubit3i32P4Comm"></span><span id="_CPPv224__netqir__qsend_teledataP5Qubit3i32P4Comm"></span><span id="__netqir__qsend_teledata__QubitP.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__qsend_teledata</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Qubit</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">qubit</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dest</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424__netqir__qsend_teledataP5Qubit3i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Generic blocking send for a single qubit using the teledata technique.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Qubit* qubit</strong> – Qubit to send.</p></li>
+<li><p><strong>i32 dest</strong> – Destination rank.</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv424__netqir__qsend_telegateP5Qubit3i32P4Comm">
+<span id="_CPPv324__netqir__qsend_telegateP5Qubit3i32P4Comm"></span><span id="_CPPv224__netqir__qsend_telegateP5Qubit3i32P4Comm"></span><span id="__netqir__qsend_telegate__QubitP.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__qsend_telegate</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Qubit</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">qubit</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dest</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424__netqir__qsend_telegateP5Qubit3i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Generic blocking send for a single qubit using the telegate technique.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Qubit* qubit</strong> – Qubit to send.</p></li>
+<li><p><strong>i32 dest</strong> – Destination rank.</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="receive-functions">
+<h4>Receive functions<a class="headerlink" href="#receive-functions" title="Link to this heading"></a></h4>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421__netqir__qrecv_arrayPP5Array3i323i32P4Comm">
+<span id="_CPPv321__netqir__qrecv_arrayPP5Array3i323i32P4Comm"></span><span id="_CPPv221__netqir__qrecv_arrayPP5Array3i323i32P4Comm"></span><span id="__netqir__qrecv_array__ArrayPP.i32.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__qrecv_array</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">array</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">count</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">src</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421__netqir__qrecv_arrayPP5Array3i323i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Generic blocking receive for a qubit array. The compiler decides which communication technique is used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Array** buf</strong> – Buffer with enough space to store the expected qubits.</p></li>
+<li><p><strong>i32 count</strong> – Number of qubits expected to be received.</p></li>
+<li><p><strong>i32 src</strong> – Source rank.</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv430__netqir__qrecv_array_teledataPP5Array3i323i32P4Comm">
+<span id="_CPPv330__netqir__qrecv_array_teledataPP5Array3i323i32P4Comm"></span><span id="_CPPv230__netqir__qrecv_array_teledataPP5Array3i323i32P4Comm"></span><span id="__netqir__qrecv_array_teledata__ArrayPP.i32.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__qrecv_array_teledata</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">array</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">count</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">src</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv430__netqir__qrecv_array_teledataPP5Array3i323i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Generic blocking receive for a qubit array using the teledata technique.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Array** buf</strong> – Buffer with enough space to store the expected qubits.</p></li>
+<li><p><strong>i32 count</strong> – Number of qubits expected to be received.</p></li>
+<li><p><strong>i32 src</strong> – Source rank.</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv430__netqir__qrecv_array_telegatePP5Array3i323i32P4Comm">
+<span id="_CPPv330__netqir__qrecv_array_telegatePP5Array3i323i32P4Comm"></span><span id="_CPPv230__netqir__qrecv_array_telegatePP5Array3i323i32P4Comm"></span><span id="__netqir__qrecv_array_telegate__ArrayPP.i32.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__qrecv_array_telegate</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">array</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">count</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">src</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv430__netqir__qrecv_array_telegatePP5Array3i323i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Generic blocking receive for a qubit array using the telegate technique.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Array** buf</strong> – Buffer with enough space to store the expected qubits.</p></li>
+<li><p><strong>i32 count</strong> – Number of qubits expected to be received.</p></li>
+<li><p><strong>i32 src</strong> – Source rank.</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv415__netqir__qrecvPP5Qubit3i32P4Comm">
+<span id="_CPPv315__netqir__qrecvPP5Qubit3i32P4Comm"></span><span id="_CPPv215__netqir__qrecvPP5Qubit3i32P4Comm"></span><span id="__netqir__qrecv__QubitPP.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__qrecv</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Qubit</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">buf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">src</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415__netqir__qrecvPP5Qubit3i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Generic blocking receive for a single qubit. The compiler decides which communication technique is used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Qubit** buf</strong> – Buffer with space reserved for storing one qubit.</p></li>
+<li><p><strong>i32 src</strong> – Source rank.</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv424__netqir__qrecv_teledataPP5Qubit3i32P4Comm">
+<span id="_CPPv324__netqir__qrecv_teledataPP5Qubit3i32P4Comm"></span><span id="_CPPv224__netqir__qrecv_teledataPP5Qubit3i32P4Comm"></span><span id="__netqir__qrecv_teledata__QubitPP.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__qrecv_teledata</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Qubit</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">buf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">src</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424__netqir__qrecv_teledataPP5Qubit3i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Generic blocking receive for a single qubit using teledata technique.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Qubit** buf</strong> – Buffer with space reserved for storing one qubit.</p></li>
+<li><p><strong>i32 src</strong> – Source rank.</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv424__netqir__qrecv_telegatePP5Qubit3i32P4Comm">
+<span id="_CPPv324__netqir__qrecv_telegatePP5Qubit3i32P4Comm"></span><span id="_CPPv224__netqir__qrecv_telegatePP5Qubit3i32P4Comm"></span><span id="__netqir__qrecv_telegate__QubitPP.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__qrecv_telegate</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Qubit</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">buf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">src</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv424__netqir__qrecv_telegatePP5Qubit3i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Generic blocking receive for a single qubit using telegate technique.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Qubit** buf</strong> – Buffer with space reserved for storing one qubit.</p></li>
+<li><p><strong>i32 src</strong> – Source rank.</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="measurement-functions">
+<h4>Measurement functions<a class="headerlink" href="#measurement-functions" title="Link to this heading"></a></h4>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv428__netqir__measure_send_arrayP5Array3i323i32P4Comm">
+<span id="_CPPv328__netqir__measure_send_arrayP5Array3i323i32P4Comm"></span><span id="_CPPv228__netqir__measure_send_arrayP5Array3i323i32P4Comm"></span><span id="__netqir__measure_send_array__ArrayP.i32.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__measure_send_array</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">array</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">count</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dest</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv428__netqir__measure_send_arrayP5Array3i323i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Measure a array of qubits and send the classical results (binary) to the destination rank.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Array* array</strong> – Array of qubits to measure.</p></li>
+<li><p><strong>i32 count</strong> – Number of qubits in the array.</p></li>
+<li><p><strong>i32 dest</strong> – Destination rank of the binary result.</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv422__netqir__measure_sendP5Qubit3i32P4Comm">
+<span id="_CPPv322__netqir__measure_sendP5Qubit3i32P4Comm"></span><span id="_CPPv222__netqir__measure_sendP5Qubit3i32P4Comm"></span><span id="__netqir__measure_send__QubitP.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__measure_send</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Qubit</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">qubit</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dest</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422__netqir__measure_sendP5Qubit3i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Measure a single qubit and send the classical result (binary) to the destination rank.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Qubit* qubit</strong> – Qubit to measure.</p></li>
+<li><p><strong>i32 dest</strong> – Destination rank of the binary result.</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv428__netqir__measure_recv_arrayP2i13i323i32P4Comm">
+<span id="_CPPv328__netqir__measure_recv_arrayP2i13i323i32P4Comm"></span><span id="_CPPv228__netqir__measure_recv_arrayP2i13i323i32P4Comm"></span><span id="__netqir__measure_recv_array__i1P.i32.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__measure_recv_array</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">i1</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">buf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">count</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">src</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv428__netqir__measure_recv_arrayP2i13i323i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Receive the classical results of a remote qubit array measurement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i1* buf</strong> – Buffer with enough space to store the expected binary results.</p></li>
+<li><p><strong>i32 count</strong> – Number of qubits measured.</p></li>
+<li><p><strong>i32 src</strong> – Source rank of the binary results.</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv422__netqir__measure_recvP2i13i32P4Comm">
+<span id="_CPPv322__netqir__measure_recvP2i13i32P4Comm"></span><span id="_CPPv222__netqir__measure_recvP2i13i32P4Comm"></span><span id="__netqir__measure_recv__i1P.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__measure_recv</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">i1</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">buf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">src</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422__netqir__measure_recvP2i13i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Receive the classical result of a remote qubit measurement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i1* buf</strong> – Buffer with enough space to store the expected binary result.</p></li>
+<li><p><strong>i32 src</strong> – Source rank of the binary result.</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="collective-communication">
+<span id="id1"></span><h3>Collective communication<a class="headerlink" href="#collective-communication" title="Link to this heading"></a></h3>
+<p>Collective communications are used to exchange information between several nodes. The most common collective communication functions, in the classical computing, are <code class="docutils literal notranslate"><span class="pre">broadcast</span></code>, <code class="docutils literal notranslate"><span class="pre">scatter</span></code>, <code class="docutils literal notranslate"><span class="pre">gather</span></code>, and <code class="docutils literal notranslate"><span class="pre">reduce</span></code>.</p>
+<p>In quantum computing, a broadcast function cannot be implemented due to the no-cloning theorem, but an alternative is proposed through a function called <code class="docutils literal notranslate"><span class="pre">expose</span></code>. This function allows a qubit to be shared among all nodes in the communicator.</p>
+<section id="scatter">
+<h4>Scatter<a class="headerlink" href="#scatter" title="Link to this heading"></a></h4>
+<p>The scatter function distributes the elements of a qubit array among the nodes in the communicator. The array is divided into equal parts and each part is sent to a different node.</p>
+<a class="reference internal image-reference" href="../_images/scatter.svg"><img alt="../_images/scatter.svg" class="align-center" src="../_images/scatter.svg" width="600px" /></a>
+<p></p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv417__netqir__scatterP5Array3i32P5Array3i323i32P4Comm">
+<span id="_CPPv317__netqir__scatterP5Array3i32P5Array3i323i32P4Comm"></span><span id="_CPPv217__netqir__scatterP5Array3i32P5Array3i323i32P4Comm"></span><span id="__netqir__scatter__ArrayP.i32.ArrayP.i32.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__scatter</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sendbuf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sendcount</span></span>, <span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">recvbuf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">recvcount</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417__netqir__scatterP5Array3i32P5Array3i323i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Scatter an array of qubits from the root node to all nodes in the communicator. The compiler decides which sending technique is used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Array* sendbuf</strong> – Array of qubits to send (only for the sender).</p></li>
+<li><p><strong>i32 sendcount</strong> – Number of qubits to send (only for the sender).</p></li>
+<li><p><strong>%Array* recvbuf</strong> – Buffer with enough space to store the received qubits.</p></li>
+<li><p><strong>i32 recvcount</strong> – Number of qubits to receive.</p></li>
+<li><p><strong>i32 root</strong> – Rank of the root node (sender).</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv426__netqir__scatter_teledataP5Array3i32P5Array3i323i32P4Comm">
+<span id="_CPPv326__netqir__scatter_teledataP5Array3i32P5Array3i323i32P4Comm"></span><span id="_CPPv226__netqir__scatter_teledataP5Array3i32P5Array3i323i32P4Comm"></span><span id="__netqir__scatter_teledata__ArrayP.i32.ArrayP.i32.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__scatter_teledata</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sendbuf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sendcount</span></span>, <span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">recvbuf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">recvcount</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv426__netqir__scatter_teledataP5Array3i32P5Array3i323i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Scatter an array of qubits from the root node to all nodes in the communicator using the teledata technique.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Array* sendbuf</strong> – Array of qubits to send (only for the sender).</p></li>
+<li><p><strong>i32 sendcount</strong> – Number of qubits to send (only for the sender).</p></li>
+<li><p><strong>%Array* recvbuf</strong> – Buffer with enough space to store the received qubits.</p></li>
+<li><p><strong>i32 recvcount</strong> – Number of qubits to receive.</p></li>
+<li><p><strong>i32 root</strong> – Rank of the root node (sender).</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv426__netqir__scatter_telegateP5Array3i32P5Array3i323i32P4Comm">
+<span id="_CPPv326__netqir__scatter_telegateP5Array3i32P5Array3i323i32P4Comm"></span><span id="_CPPv226__netqir__scatter_telegateP5Array3i32P5Array3i323i32P4Comm"></span><span id="__netqir__scatter_telegate__ArrayP.i32.ArrayP.i32.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__scatter_telegate</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sendbuf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sendcount</span></span>, <span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">recvbuf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">recvcount</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv426__netqir__scatter_telegateP5Array3i32P5Array3i323i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Scatter an array of qubits from the root node to all nodes in the communicator using the telegate technique.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Array* sendbuf</strong> – Array of qubits to send (only for the sender).</p></li>
+<li><p><strong>i32 sendcount</strong> – Number of qubits to send (only for the sender).</p></li>
+<li><p><strong>%Array* recvbuf</strong> – Buffer with enough space to store the received qubits.</p></li>
+<li><p><strong>i32 recvcount</strong> – Number of qubits to receive.</p></li>
+<li><p><strong>i32 root</strong> – Rank of the root node (sender).</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="gather">
+<h4>Gather<a class="headerlink" href="#gather" title="Link to this heading"></a></h4>
+<p>The gather function collects the elements of a qubit array from all nodes in the communicator. The elements are received and stored in a single node.</p>
+<a class="reference internal image-reference" href="../_images/gather.svg"><img alt="../_images/gather.svg" class="align-center" src="../_images/gather.svg" width="600px" /></a>
+<p></p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416__netqir__gatherP5Array3i32P5Array3i323i32P4Comm">
+<span id="_CPPv316__netqir__gatherP5Array3i32P5Array3i323i32P4Comm"></span><span id="_CPPv216__netqir__gatherP5Array3i32P5Array3i323i32P4Comm"></span><span id="__netqir__gather__ArrayP.i32.ArrayP.i32.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__gather</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sendbuf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sendcount</span></span>, <span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">recvbuf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">recvcount</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416__netqir__gatherP5Array3i32P5Array3i323i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Gather an array of qubits from all nodes in the communicator to the root node. The compiler decides which sending technique is used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Array* sendbuf</strong> – Array of qubits to send.</p></li>
+<li><p><strong>i32 sendcount</strong> – Number of qubits to send.</p></li>
+<li><p><strong>%Array* recvbuf</strong> – Buffer with enough space to store the received qubits (only for the root).</p></li>
+<li><p><strong>i32 recvcount</strong> – Number of qubits to receive (only for the root).</p></li>
+<li><p><strong>i32 root</strong> – Rank of the root node (receiver).</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv425__netqir__gather_teledataP5Array3i32P5Array3i323i32P4Comm">
+<span id="_CPPv325__netqir__gather_teledataP5Array3i32P5Array3i323i32P4Comm"></span><span id="_CPPv225__netqir__gather_teledataP5Array3i32P5Array3i323i32P4Comm"></span><span id="__netqir__gather_teledata__ArrayP.i32.ArrayP.i32.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__gather_teledata</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sendbuf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sendcount</span></span>, <span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">recvbuf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">recvcount</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv425__netqir__gather_teledataP5Array3i32P5Array3i323i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Gather an array of qubits from all nodes in the communicator to the root node using the teledata technique.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Array* sendbuf</strong> – Array of qubits to send.</p></li>
+<li><p><strong>i32 sendcount</strong> – Number of qubits to send.</p></li>
+<li><p><strong>%Array* recvbuf</strong> – Buffer with enough space to store the received qubits (only for the root).</p></li>
+<li><p><strong>i32 recvcount</strong> – Number of qubits to receive (only for the root).</p></li>
+<li><p><strong>i32 root</strong> – Rank of the root node (receiver).</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv425__netqir__gather_telegateP5Array3i32P5Array3i323i32P4Comm">
+<span id="_CPPv325__netqir__gather_telegateP5Array3i32P5Array3i323i32P4Comm"></span><span id="_CPPv225__netqir__gather_telegateP5Array3i32P5Array3i323i32P4Comm"></span><span id="__netqir__gather_telegate__ArrayP.i32.ArrayP.i32.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__gather_telegate</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sendbuf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sendcount</span></span>, <span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">recvbuf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">recvcount</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv425__netqir__gather_telegateP5Array3i32P5Array3i323i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Gather an array of qubits from all nodes in the communicator to the root node using the telegate technique.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Array* sendbuf</strong> – Array of qubits to send.</p></li>
+<li><p><strong>i32 sendcount</strong> – Number of qubits to send.</p></li>
+<li><p><strong>%Array* recvbuf</strong> – Buffer with enough space to store the received qubits (only for the root).</p></li>
+<li><p><strong>i32 recvcount</strong> – Number of qubits to receive (only for the root).</p></li>
+<li><p><strong>i32 root</strong> – Rank of the root node (receiver).</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="expose">
+<h4>Expose<a class="headerlink" href="#expose" title="Link to this heading"></a></h4>
+<p>The expose function allows a qubit to be shared among all nodes in the communicator. The qubit is shared by exposing its reference (not copy) to all nodes.</p>
+<a class="reference internal image-reference" href="../_images/expose.svg"><img alt="../_images/expose.svg" class="align-center" src="../_images/expose.svg" width="400px" /></a>
+<p></p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416__netqir__exposeP5Qubit3i32P4Comm">
+<span id="_CPPv316__netqir__exposeP5Qubit3i32P4Comm"></span><span id="_CPPv216__netqir__exposeP5Qubit3i32P4Comm"></span><span id="__netqir__expose__QubitP.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__expose</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Qubit</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">qubit</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416__netqir__exposeP5Qubit3i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Expose a qubit to all nodes in the communicator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Qubit* qubit</strong> – Qubit to expose.</p></li>
+<li><p><strong>i32 root</strong> – Rank of the root node.</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv422__netqir__expose_arrayP5Array3i323i32P4Comm">
+<span id="_CPPv322__netqir__expose_arrayP5Array3i323i32P4Comm"></span><span id="_CPPv222__netqir__expose_arrayP5Array3i323i32P4Comm"></span><span id="__netqir__expose_array__ArrayP.i32.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__expose_array</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">array</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">count</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422__netqir__expose_arrayP5Array3i323i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Expose an array of qubits to all nodes in the communicator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Array* array</strong> – Array of qubits to expose.</p></li>
+<li><p><strong>i32 count</strong> – Number of qubits in the array.</p></li>
+<li><p><strong>i32 root</strong> – Rank of the root node.</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="reduce">
+<h4>Reduce<a class="headerlink" href="#reduce" title="Link to this heading"></a></h4>
+<p></p>
+<p>The reduce function aggregates the elements of a qubit array from all nodes in the communicator. The elements are combined using an operation and the result is stored in a single node.</p>
+<a class="reference internal image-reference" href="../_images/reduce.svg"><img alt="../_images/reduce.svg" class="align-center" src="../_images/reduce.svg" width="600px" /></a>
+<section id="id2">
+<h5><a class="headerlink" href="#id2" title="Link to this heading"></a></h5>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416__netqir__reduceP5Array3i32P5Array3i323i32P4Comm">
+<span id="_CPPv316__netqir__reduceP5Array3i32P5Array3i323i32P4Comm"></span><span id="_CPPv216__netqir__reduceP5Array3i32P5Array3i323i32P4Comm"></span><span id="__netqir__reduce__ArrayP.i32.ArrayP.i32.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__reduce</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sendbuf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sendcount</span></span>, <span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">recvbuf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">operation</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416__netqir__reduceP5Array3i32P5Array3i323i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Reduce an array of qubits from all nodes in the communicator to the root node. The compiler decides which sending technique is used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Array* sendbuf</strong> – Array of qubits to send.</p></li>
+<li><p><strong>i32 sendcount</strong> – Number of qubits to send.</p></li>
+<li><p><strong>%Array* recvbuf</strong> – Buffer with enough space to store the received qubits (only for the root).</p></li>
+<li><p><strong>i32 operation</strong> – Operation to perform.</p></li>
+<li><p><strong>i32 root</strong> – Rank of the root node (receiver).</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv425__netqir__reduce_teledataP5Array3i32P5Array3i323i32P4Comm">
+<span id="_CPPv325__netqir__reduce_teledataP5Array3i32P5Array3i323i32P4Comm"></span><span id="_CPPv225__netqir__reduce_teledataP5Array3i32P5Array3i323i32P4Comm"></span><span id="__netqir__reduce_teledata__ArrayP.i32.ArrayP.i32.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__reduce_teledata</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sendbuf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sendcount</span></span>, <span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">recvbuf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">operation</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv425__netqir__reduce_teledataP5Array3i32P5Array3i323i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Reduce an array of qubits from all nodes in the communicator to the root node using the teledata technique.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Array* sendbuf</strong> – Array of qubits to send.</p></li>
+<li><p><strong>i32 sendcount</strong> – Number of qubits to send.</p></li>
+<li><p><strong>%Array* recvbuf</strong> – Buffer with enough space to store the received qubits (only for the root).</p></li>
+<li><p><strong>i32 operation</strong> – Operation to perform.</p></li>
+<li><p><strong>i32 root</strong> – Rank of the root node (receiver).</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv425__netqir__reduce_telegateP5Array3i32P5Array3i323i32P4Comm">
+<span id="_CPPv325__netqir__reduce_telegateP5Array3i32P5Array3i323i32P4Comm"></span><span id="_CPPv225__netqir__reduce_telegateP5Array3i32P5Array3i323i32P4Comm"></span><span id="__netqir__reduce_telegate__ArrayP.i32.ArrayP.i32.i32.CommP"></span><span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">__netqir__reduce_telegate</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">sendbuf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">sendcount</span></span>, <span class="n"><span class="pre">Array</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">recvbuf</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">operation</span></span>, <span class="n"><span class="pre">i32</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root</span></span>, <span class="n"><span class="pre">Comm</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv425__netqir__reduce_telegateP5Array3i32P5Array3i323i32P4Comm" title="Link to this definition"></a><br /></dt>
+<dd><p>Reduce an array of qubits from all nodes in the communicator to the root node using the telegate technique.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>%Array* sendbuf</strong> – Array of qubits to send.</p></li>
+<li><p><strong>i32 sendcount</strong> – Number of qubits to send.</p></li>
+<li><p><strong>%Array* recvbuf</strong> – Buffer with enough space to store the received qubits (only for the root).</p></li>
+<li><p><strong>i32 operation</strong> – Operation to perform.</p></li>
+<li><p><strong>i32 root</strong> – Rank of the root node (receiver).</p></li>
+<li><p><strong>%Comm* comm</strong> – Communicator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0 if successful, 1 otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="datatypes.html" class="btn btn-neutral float-left" title="Datatypes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Graziella.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

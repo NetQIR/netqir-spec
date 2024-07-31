@@ -1,0 +1,9 @@
+NetQIR Specification
+====================
+
+.. toctree::
+   :maxdepth: 2
+
+   subsection1
+   subsection2
+   subsection3
