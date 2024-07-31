@@ -5,21 +5,21 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Functions &mdash; NetQIR 0.0.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../static/css/theme.css?v=19f00094" />
 
   
   <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
+    <script src="../static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=d45e8c67"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../static/jquery.js?v=5d32c60e"></script>
+        <script src="../static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../static/documentation_options.js?v=d45e8c67"></script>
+        <script src="../static/doctools.js?v=9a2dae69"></script>
+        <script src="../static/sphinx_highlight.js?v=dc90522c"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="../_static/js/theme.js"></script>
+    <script src="../static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Examples" href="examples.html" />
@@ -128,7 +128,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Functions</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/netqir_spec/functions.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../sources/netqir_spec/functions.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -579,21 +579,21 @@ have to be included <code class="docutils literal notranslate"><span class="pre"
 <section id="point-to-point-communication">
 <h3>Point-to-point communication<a class="headerlink" href="#point-to-point-communication" title="Link to this heading"></a></h3>
 <p>Point-to-point communications involves a transfer of information from one node (sender) to another (receiver). To achieve this goal, it is therefore necessary to have both a sending and a receiving function to establish a correct synchronisation between the distributed devices.</p>
-<a class="reference internal image-reference" href="../_images/qsend_receive.svg"><img alt="../_images/qsend_receive.svg" class="align-center" src="../_images/qsend_receive.svg" width="400px" /></a>
+<a class="reference internal image-reference" href="../images/qsend_receive.svg"><img alt="../images/qsend_receive.svg" class="align-center" src="../images/qsend_receive.svg" width="400px" /></a>
 <p></p>
 <p>In addition, this functions has different versions in function use one or another technique for the distribution. The distribution techniques that can be chosen are “teledata” and “telegate”.</p>
 <ul class="simple">
 <li><p><strong>Teledata</strong>: This technique sends the qubit data to the destination rank.</p></li>
 </ul>
-<a class="reference internal image-reference" href="../_images/teledata.svg"><img alt="../_images/teledata.svg" class="align-center" src="../_images/teledata.svg" width="400px" /></a>
+<a class="reference internal image-reference" href="../images/teledata.svg"><img alt="../images/teledata.svg" class="align-center" src="../images/teledata.svg" width="400px" /></a>
 <p></p>
 <ul class="simple">
 <li><p><strong>Telegate</strong>: This technique “expose” the qubit reference to the destination rank.</p></li>
 </ul>
-<a class="reference internal image-reference" href="../_images/telegate.svg"><img alt="../_images/telegate.svg" class="align-center" src="../_images/telegate.svg" width="400px" /></a>
+<a class="reference internal image-reference" href="../images/telegate.svg"><img alt="../images/telegate.svg" class="align-center" src="../images/telegate.svg" width="400px" /></a>
 <p></p>
 <p>Finally, also include directives to perform and send the result of qubit measurements. These functions indicate that the sender measures one or more qubits and sends the classical (binary) result to the receiver.</p>
-<a class="reference internal image-reference" href="../_images/measure_send.svg"><img alt="../_images/measure_send.svg" class="align-center" src="../_images/measure_send.svg" width="400px" /></a>
+<a class="reference internal image-reference" href="../images/measure_send.svg"><img alt="../images/measure_send.svg" class="align-center" src="../images/measure_send.svg" width="400px" /></a>
 <section id="sending-functions">
 <h4>Sending functions<a class="headerlink" href="#sending-functions" title="Link to this heading"></a></h4>
 <dl class="cpp function">
@@ -907,7 +907,7 @@ have to be included <code class="docutils literal notranslate"><span class="pre"
 <section id="scatter">
 <h4>Scatter<a class="headerlink" href="#scatter" title="Link to this heading"></a></h4>
 <p>The scatter function distributes the elements of a qubit array among the nodes in the communicator. The array is divided into equal parts and each part is sent to a different node.</p>
-<a class="reference internal image-reference" href="../_images/scatter.svg"><img alt="../_images/scatter.svg" class="align-center" src="../_images/scatter.svg" width="600px" /></a>
+<a class="reference internal image-reference" href="../images/scatter.svg"><img alt="../images/scatter.svg" class="align-center" src="../images/scatter.svg" width="600px" /></a>
 <p></p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv417__netqir__scatterP5Array3i32P5Array3i323i32P4Comm">
@@ -976,7 +976,7 @@ have to be included <code class="docutils literal notranslate"><span class="pre"
 <section id="gather">
 <h4>Gather<a class="headerlink" href="#gather" title="Link to this heading"></a></h4>
 <p>The gather function collects the elements of a qubit array from all nodes in the communicator. The elements are received and stored in a single node.</p>
-<a class="reference internal image-reference" href="../_images/gather.svg"><img alt="../_images/gather.svg" class="align-center" src="../_images/gather.svg" width="600px" /></a>
+<a class="reference internal image-reference" href="../images/gather.svg"><img alt="../images/gather.svg" class="align-center" src="../images/gather.svg" width="600px" /></a>
 <p></p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv416__netqir__gatherP5Array3i32P5Array3i323i32P4Comm">
@@ -1045,7 +1045,7 @@ have to be included <code class="docutils literal notranslate"><span class="pre"
 <section id="expose">
 <h4>Expose<a class="headerlink" href="#expose" title="Link to this heading"></a></h4>
 <p>The expose function allows a qubit to be shared among all nodes in the communicator. The qubit is shared by exposing its reference (not copy) to all nodes.</p>
-<a class="reference internal image-reference" href="../_images/expose.svg"><img alt="../_images/expose.svg" class="align-center" src="../_images/expose.svg" width="400px" /></a>
+<a class="reference internal image-reference" href="../images/expose.svg"><img alt="../images/expose.svg" class="align-center" src="../images/expose.svg" width="400px" /></a>
 <p></p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv416__netqir__exposeP5Qubit3i32P4Comm">
@@ -1089,7 +1089,7 @@ have to be included <code class="docutils literal notranslate"><span class="pre"
 <h4>Reduce<a class="headerlink" href="#reduce" title="Link to this heading"></a></h4>
 <p></p>
 <p>The reduce function aggregates the elements of a qubit array from all nodes in the communicator. The elements are combined using an operation and the result is stored in a single node.</p>
-<a class="reference internal image-reference" href="../_images/reduce.svg"><img alt="../_images/reduce.svg" class="align-center" src="../_images/reduce.svg" width="600px" /></a>
+<a class="reference internal image-reference" href="../images/reduce.svg"><img alt="../images/reduce.svg" class="align-center" src="../images/reduce.svg" width="600px" /></a>
 <section id="id2">
 <h5><a class="headerlink" href="#id2" title="Link to this heading"></a></h5>
 <dl class="cpp function">
